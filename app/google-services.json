@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "274842919462",
+    "project_id": "roadside-provider-29359",
+    "storage_bucket": "roadside-provider-29359.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274842919462:android:ab8b46d141539057c3bce7",
+        "android_client_info": {
+          "package_name": "com.techsamuel.roadsideprovider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274842919462-q24q18fsqjkd6mf1816nimvhhivvhi6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPlLVlBGpqtwaEgSBvn8eLY_zzdByeO_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "274842919462-q24q18fsqjkd6mf1816nimvhhivvhi6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

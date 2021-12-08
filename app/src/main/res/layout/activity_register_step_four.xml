@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_5"
+        android:clipToPadding="false"
+        android:padding="@dimen/spacing_mlarge"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/document"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/spacing_large"
+                />
+            <TextView
+
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload Documents"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textColor="@color/grey_80"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="National ID Front Photo"
+                        android:textColor="@color/grey_80"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/nid_Front"
+                        android:background="@color/grey_400"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/idcard_front"
+
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="National ID Back Photo"
+                        android:textColor="@color/grey_80"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/nidBack"
+                        android:background="@color/grey_400"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/idcard_back"
+
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/toolboxText"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Upload Toolbox Photos"
+                        android:textColor="@color/grey_80"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:padding="@dimen/spacing_large"
+                        android:id="@+id/uploadToolbox"
+                        android:background="@color/grey_400"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/toolbox"
+
+                        />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:visibility="gone"
+                        android:background="@color/grey_400"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Driving License Photo"
+                        android:textColor="@color/grey_80"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/driverLicense"
+                        android:background="@color/grey_400"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/driving_license"
+
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Owner Photo"
+                        android:textColor="@color/grey_80"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:padding="@dimen/spacing_large"
+                        android:id="@+id/ownerPhoto"
+                        android:background="@color/grey_400"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/owner_photo"
+
+                        />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_mlarge" />
+
+            <Button
+                android:id="@+id/nextBtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="-4dp"
+                android:layout_marginRight="-4dp"
+                android:background="@drawable/btn_rounded_red"
+                android:text="Next"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@android:color/white" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_mlarge" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

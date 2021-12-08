@@ -1,0 +1,64 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
+
+    defaultConfig {
+        applicationId "com.techsamuel.roadsideprovider"
+        minSdkVersion 16
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    //All firebase and google dependencies here
+    implementation platform('com.google.firebase:firebase-bom:28.4.1')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-auth'
+
+    //Third party dependencies here
+    implementation 'com.hbb20:ccp:2.4.7' //Country code picker
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0' //Retrofit Api Builder Library
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0' //Retrofit Api Builder Library
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.7.0'//Mapbox Map
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.9.0'//Mapbox Map
+    implementation 'de.hdodenhof:circleimageview:3.1.0'  //Circle Image Library
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation 'com.balysv:material-ripple:1.0.2'
+
+
+
+
+
+}
+apply plugin: 'com.google.gms.google-services'

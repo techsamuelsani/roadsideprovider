@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Roadside Provider</string>
+    <string name="getting_started">Getting Started</string>
+    <string name="please_enter_your_mobile_number_to_register_as_a_service_provider">Please enter your mobile number to register as a Service Provider</string>
+    <string name="already_registerd_click_here_to_login">Already Registerd, Click here to Login</string>
+    <string name="continue_text">CONTINUE</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="please_enter_correct_phone_number">Please enter correct phone number</string>
+    <string name="incorrect_verificatio_code">Incorrect verification code</string>
+    <string name="mapbox_access_token" translatable="false">pk.eyJ1Ijoic2FtdWVsc2FuaSIsImEiOiJja3JweGo2ZWIwbnRyMm5vMWs5ZWVuYTFmIn0.fD3AaRsDNTRIqeWfQY227g</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="loading">Loading...</string>
+    <string name="balance">Balance:</string>
+    <string name="exit_app">Exit App</string>
+    <string name="exit_app_description">Are you sure you want to Exit the App?</string>
+    <string name="logout_app">Logout App</string>
+    <string name="logout_app_description">Do you want to logout from the App?</string>
+    <string name="save_go"><![CDATA[Save & Go]]></string>
+</resources>
