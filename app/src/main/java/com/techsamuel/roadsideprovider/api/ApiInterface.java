@@ -65,12 +65,18 @@ public interface ApiInterface {
     Call<DataSavedModel> getServicesById(@Field("provider_id") String provider_id);
 
     @FormUrlEncoded
-    @POST("getProviderById")
-    Call<ProviderModel> getProviderById(@Field("provider_id") String provider_id);
+    @POST("getProviderByPhone")
+    Call<ProviderModel> getProviderByPhone(@Field("provider_phone") String provider_phone);
 
     @FormUrlEncoded
     @POST("getAllServices")
     Call<ServiceModel> getAllServices(@Field("device_type") String device_type, @Field("lang_code") String lang_code);
+
+    @FormUrlEncoded
+    @POST("updateDeviceInformationToServer")
+    Call<DataSavedModel> updateDeviceInformationToServer(@Field("device_type") String device_type,@Field("user_type") String user_type,@Field("user_id") String user_id, @Field("lang_code") String lang_code,
+                                                         @Field("latitude") String latitude, @Field("longitude") String longitude,@Field("fcm") String fcm,
+                                                         @Field("device_id") String device_id,@Field("firebase_id") String firebase_id);
 
 
 }

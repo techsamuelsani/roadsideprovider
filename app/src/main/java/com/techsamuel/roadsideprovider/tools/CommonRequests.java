@@ -8,6 +8,7 @@ import android.util.Log;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.techsamuel.roadsideprovider.Config;
@@ -34,11 +35,9 @@ public class CommonRequests {
         Call<DataSavedModel> call=apiInterface.checkRegistrationStep(
                 firebaseUser.getPhoneNumber()
         );
-
         call.enqueue(new Callback<DataSavedModel>() {
             @Override
             public void onResponse(Call<DataSavedModel> call, Response<DataSavedModel> response) {
-
                 if(response.body().getStatus()== Config.API_FAILED){
                     String allMessage="";
                     for(String message:response.body().getMessage()){
@@ -48,7 +47,7 @@ public class CommonRequests {
 
                 }else{
                     String step=response.body().getMessage().get(0);
-                    //showToast(context,step);
+                    //Tools.showToast(context,step);
                     if(step.equals("STEP1")){
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("Want to continue with "+firebaseUser.getPhoneNumber()+" this phone number?");
@@ -73,8 +72,8 @@ public class CommonRequests {
                         builder.show();
 
                     }else if(step.equals("STEP5")){
-                       getProviderById(context);
-                       // showToast(context,"Going to STEP5");
+                       getProviderByPhone(context);
+                       //Tools.showToast(context,"Going to STEP5");
 
                     }else{
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -118,7 +117,8 @@ public class CommonRequests {
 
             @Override
             public void onFailure(Call<DataSavedModel> call, Throwable t) {
-                Log.d("Api Error",t.getMessage().toString());
+                Log.d("ApiError",t.getMessage().toString());
+                Tools.showToast(context,t.getMessage());
 
             }
         });
@@ -190,20 +190,18 @@ public class CommonRequests {
 
     }
 
-    public static void getProviderById(Context context){
+    public static void getProviderByPhone(Context context){
         AppSharedPreferences.init(context);
         ApiInterface apiInterface= ApiServiceGenerator.createService(ApiInterface.class);
-        String providerId=AppSharedPreferences.read(Config.SHARED_PREF_PROVIDER_ID,"");
-        Call<ProviderModel> call=apiInterface.getProviderById(providerId);
+        Call<ProviderModel> call=apiInterface.getProviderByPhone(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
         call.enqueue(new Callback<ProviderModel>() {
             @Override
             public void onResponse(Call<ProviderModel> call, Response<ProviderModel> response) {
                 if(response.body().getStatus()==Config.API_SUCCESS){
                     AppSharedPreferences.writeProviderModel(Config.SHARED_PREF_PROVIDER_MODEL,response.body());
+                    AppSharedPreferences.write(Config.SHARED_PREF_PROVIDER_ID,response.body().getId());
                     Intent intent=new Intent(context, MainActivity.class);
                     context.startActivity(intent);
-
-
                 }
 
             }

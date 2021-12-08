@@ -5,9 +5,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +28,11 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.hbb20.CountryCodePicker;
+import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
+import com.techsamuel.roadsideprovider.api.ApiInterface;
+import com.techsamuel.roadsideprovider.api.ApiServiceGenerator;
+import com.techsamuel.roadsideprovider.model.DataSavedModel;
 import com.techsamuel.roadsideprovider.tools.CommonRequests;
 import com.techsamuel.roadsideprovider.tools.Tools;
 
@@ -34,6 +40,10 @@ import com.techsamuel.roadsideprovider.tools.Tools;
 import java.util.concurrent.TimeUnit;
 
 import static com.techsamuel.roadsideprovider.Config.PHONE_VERIFICATION_CODE;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterStepOne extends AppCompatActivity {
 
@@ -151,18 +161,9 @@ public class RegisterStepOne extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            CommonRequests.goToStep(RegisterStepOne.this,firebaseAuth.getCurrentUser());
                             Tools.showToast(RegisterStepOne.this,"Phone Auth success");
                             progressBar.setVisibility(View.VISIBLE);
-//                            Intent intent=new Intent(RegisterStepOne.this,RegisterStepTwo.class);
-//                            intent.putExtra("phoneNumber",fullPhoneNumber);
-//                            intent.putExtra("firebaseId",firebaseAuth.getCurrentUser().getUid());
-//                            startActivity(intent);
-                            if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-                                ///CommonRequests.getIdByPhone(RegisterStepOne.this,FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
-                                CommonRequests.goToStep(RegisterStepOne.this,firebaseAuth.getCurrentUser());
-                            }
-
-
                         } else {
                             Tools.showToast(RegisterStepOne.this,getString(R.string.incorrect_verificatio_code));
 
@@ -170,6 +171,7 @@ public class RegisterStepOne extends AppCompatActivity {
                     }
                 });
     }
+
 
 
     @Override

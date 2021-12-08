@@ -63,12 +63,19 @@ import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
 import com.techsamuel.roadsideprovider.activity.register.RegisterStepOne;
+import com.techsamuel.roadsideprovider.api.ApiInterface;
+import com.techsamuel.roadsideprovider.api.ApiServiceGenerator;
+import com.techsamuel.roadsideprovider.model.DataSavedModel;
 import com.techsamuel.roadsideprovider.model.ProviderModel;
 import com.techsamuel.roadsideprovider.tools.AppSharedPreferences;
 import com.techsamuel.roadsideprovider.tools.CommonRequests;
 import com.techsamuel.roadsideprovider.tools.Tools;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements
         OnMapReadyCallback, PermissionsListener{
@@ -115,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppSharedPreferences.init(this);
         providerModel=AppSharedPreferences.readProviderModel(Config.SHARED_PREF_PROVIDER_MODEL,"");
         Mapbox.getInstance(this,getString(R.string.mapbox_access_token));
         setContentView(R.layout.activity_main);
@@ -128,20 +136,25 @@ public class MainActivity extends AppCompatActivity implements
 
 
     private void init(){
-        CommonRequests.updateFcmToServer(this);
+        //CommonRequests.updateFcmToServer(this);
         locationEngineCallback=new LocationEngineCallback<LocationEngineResult>() {
             @Override
             public void onSuccess(LocationEngineResult locationEngineResult) {
                 lastLocation=new LatLng(locationEngineResult.getLastLocation().getLatitude(),locationEngineResult.getLastLocation().getLongitude());
-                if(providerModel.getData().get(0).getLatitude().equals("0")&&providerModel.getData().get(0).getLongitude().equals("0")){
-                        CommonRequests.updateLocationToServer(MainActivity.this,lastLocation);
-                    }
+                updateDeviceInformationToServer(Config.DEVICE_TYPE,Config.USER_TYPE,AppSharedPreferences.read(Config.SHARED_PREF_PROVIDER_ID,""),
+                        Config.LANG_CODE,locationEngineResult.getLastLocation().getLatitude(),
+                        locationEngineResult.getLastLocation().getLongitude(),AppSharedPreferences.read(Config.SHARED_PREF_KEY_FCM,""),
+                        AppSharedPreferences.read(Config.SHARED_PREF_DEVICE_ID,""),FirebaseAuth.getInstance().getCurrentUser().getUid());
 
             }
 
             @Override
             public void onFailure(@NonNull Exception e) {
                 Tools.showToast(MainActivity.this,"Location Updates Failed, please turn on gps");
+                updateDeviceInformationToServer(Config.DEVICE_TYPE,Config.USER_TYPE,AppSharedPreferences.read(Config.SHARED_PREF_PROVIDER_ID,""),
+                        Config.LANG_CODE,0, 0,
+                        AppSharedPreferences.read(Config.SHARED_PREF_KEY_FCM,""),
+                        AppSharedPreferences.read(Config.SHARED_PREF_DEVICE_ID,""),FirebaseAuth.getInstance().getCurrentUser().getUid());
 
             }
         };
@@ -242,6 +255,35 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
+
+    }
+
+    private void updateDeviceInformationToServer(String deviceType,String userType,String userId, String langCode, double latitude, double longitude,
+                                                 String fcm, String device_id,String firebase_id) {
+        String lat=String.valueOf(latitude);
+        String lon=String.valueOf(longitude);
+        ApiInterface apiInterface= ApiServiceGenerator.createService(ApiInterface.class);
+        Call<DataSavedModel> call=apiInterface.updateDeviceInformationToServer(deviceType,userType,userId,langCode,lat,lon,fcm,device_id,firebase_id);
+        call.enqueue(new Callback<DataSavedModel>() {
+            @Override
+            public void onResponse(Call<DataSavedModel> call, Response<DataSavedModel> response) {
+                //Tools.showToast(MainActivity.this,response.body().getMessage().toString());
+                Log.d("MainActivity",response.body().toString());
+                if(response.body().getStatus()== Config.API_SUCCESS){
+                    Log.d("MainActivity","Device information updated successfully");
+                    Tools.showToast(MainActivity.this,"Device information updated successfully");
+                }else{
+                    Log.d("MainActivity","Failed to update device information");
+                    Tools.showToast(MainActivity.this,"Failed to update device information");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataSavedModel> call, Throwable t) {
+                Log.d("MainActivity",t.getMessage().toString());
+                Tools.showToast(MainActivity.this,"Failed to update device information");
+            }
+        });
 
     }
 
@@ -373,17 +415,6 @@ public class MainActivity extends AppCompatActivity implements
             locationComponent.setCameraMode(CameraMode.TRACKING);
             locationComponent.setRenderMode(RenderMode.COMPASS);
             locationComponent.getLocationEngine().getLastLocation(locationEngineCallback);
-//            CameraPosition cameraPosition;
-//            LatLng providerStoreLatLng=new LatLng(Double.valueOf(providerModel.getData().get(0).getLatitude()),Double.valueOf(providerModel.getData().get(0).getLongitude()));
-//            if(zoomOwnLocation){
-//                cameraPosition=new CameraPosition.Builder().target(providerStoreLatLng).zoom(12.00).tilt(20.00).build();
-//                mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000);
-//                zoomOwnLocation=false;
-//            }else{
-//                cameraPosition=new CameraPosition.Builder().target(providerStoreLatLng).zoom(0.00).tilt(0.00).build();
-//                mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000);
-//                zoomOwnLocation=true;
-//            }
 
         } else {
             permissionsManager = new PermissionsManager(this);

@@ -47,7 +47,6 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Tools.hideSystemUI(this);
         setContentView(R.layout.activity_profile);
         initToolbar();
         init();
