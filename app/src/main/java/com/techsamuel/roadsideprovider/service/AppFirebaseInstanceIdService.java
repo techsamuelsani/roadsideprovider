@@ -20,6 +20,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
 import com.techsamuel.roadsideprovider.activity.MainActivity;
+import com.techsamuel.roadsideprovider.activity.OrderDetailsActivity;
 import com.techsamuel.roadsideprovider.tools.AppSharedPreferences;
 
 import java.io.InputStream;
@@ -71,9 +72,9 @@ public class AppFirebaseInstanceIdService extends FirebaseMessagingService {
         Bitmap coverImage = getBitmapfromUrl(cover);
         Bitmap iconImage=getBitmapfromUrl(icon);
 
-//        Intent notificationIntent = new Intent(getApplicationContext(),OrderDetailsActivity.class);
-//        notificationIntent.putExtra("order_id",id);
-//        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
+        Intent notificationIntent = new Intent(getApplicationContext(), OrderDetailsActivity.class);
+        notificationIntent.putExtra("order_id",id);
+        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
 
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         String CHANNEL_ID = "roadside-provider";
@@ -104,14 +105,14 @@ public class AppFirebaseInstanceIdService extends FirebaseMessagingService {
 
         }
         if (iconImage!=null){
-            builder.setLargeIcon(coverImage);
+            builder.setLargeIcon(iconImage);
         }
 
-//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
-//        stackBuilder.addParentStack(MainActivity.class);
-//        stackBuilder.addNextIntent(notificationIntent);
-//        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_ONE_SHOT);
-//        builder.setContentIntent(resultPendingIntent);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(notificationIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_ONE_SHOT);
+        builder.setContentIntent(resultPendingIntent);
         notificationManager.notify(NOTIFICATION_ID, builder.build());
 
     }
