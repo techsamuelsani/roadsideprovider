@@ -254,6 +254,13 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
+        lytCurrentOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,CurrentOrdersActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

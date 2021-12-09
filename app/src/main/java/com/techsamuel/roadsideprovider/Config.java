@@ -13,7 +13,12 @@ public class Config {
     public static final String API_USERNAME="roadsideapp";
     public static final String API_PASSWORD="RoadSide1643*#";
     public static final String USER_TYPE ="provider" ;
+    public static final String SHARED_PREF_SETTINGS_MODEL = "settings_model";
     public static final String SHARED_PREF_DEVICE_ID = "device_id";
+    public static final String SHARED_PREF_ORDER_MODEL = "order_model";
+    public static final long SPLASH_SCREEN_TIMEOUT = 2000;
+    public static String ORDER_TYPE_DELIVERY="delivery";
+    public static String ORDER_TYPE_PICKUP="pickup";
     public static int PHONE_VERIFICATION_CODE=101;
     public static int API_SUCCESS=200;
     public static int API_FAILED=500;

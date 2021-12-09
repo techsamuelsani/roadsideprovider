@@ -3,7 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/ic_arrow_drop.xml" value="0.35185185185185186" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/ic_baseline_navigation_24.xml" value="0.35185185185185186" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/ic_baseline_payments_24.xml" value="0.35185185185185186" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.35185185185185186" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/ic_close.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/ic_photo.xml" value="0.35185185185185186" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/provider_marker.xml" value="0.35185185185185186" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/shape_circle.xml" value="0.35185185185185186" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/activity_current_orders.xml" value="0.29347826086956524" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/activity_order_details.xml" value="0.29347826086956524" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/activity_pre_order_details.xml" value="0.29347826086956524" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/activity_profile.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/activity_register_step_one.xml" value="0.29347826086956524" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/activity_splash.xml" value="0.29347826086956524" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/fragment_image_view.xml" value="0.29347826086956524" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/item_grid_image.xml" value="0.29347826086956524" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/item_order.xml" value="0.29347826086956524" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/item_orderpage_service.xml" value="0.29347826086956524" />
         <entry key="app/src/main/res/layout/activity_phone_verification.xml" value="0.2453125" />
         <entry key="app/src/main/res/layout/activity_register_step_one.xml" value="0.2453125" />
       </map>

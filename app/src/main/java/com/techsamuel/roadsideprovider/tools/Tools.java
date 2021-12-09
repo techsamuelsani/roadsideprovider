@@ -8,6 +8,11 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
@@ -19,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.widget.NestedScrollView;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.techsamuel.roadsideprovider.Config;
@@ -37,6 +43,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -156,6 +164,61 @@ public class Tools {
         returnCursor.close();
         return name;
     }
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+        Bitmap bitmap = null;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if(bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+    public static void nestedScrollTo(final NestedScrollView nested, final View targetView) {
+        nested.post(new Runnable() {
+            @Override
+            public void run() {
+                nested.scrollTo(500, targetView.getBottom());
+            }
+        });
+    }
+
+    public static String getAdressFromLatLong(Context context,String latitude, String longitude) {
+
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(context, Locale.getDefault());
+        String address="Problem with getting address from store location";
+
+        try {
+            addresses = geocoder.getFromLocation(Double.valueOf(latitude), Double.valueOf(longitude), 1);
+            address = addresses.get(0).getAddressLine(0);// Here 1 represent max location result to returned, by documents it recommended 1 to 5
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        String  // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+//        String city = addresses.get(0).getLocality();
+//        String state = addresses.get(0).getAdminArea();
+//        String country = addresses.get(0).getCountryName();
+//        String postalCode = addresses.get(0).getPostalCode();
+//        String knownName = addresses.get(0).getFeatureName();
+        return address;
+
+
+    }
+
 
 
 

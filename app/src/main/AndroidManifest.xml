@@ -24,6 +24,21 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.CurrentOrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PreOrderDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.OrderDetailsActivity"
             android:exported="false" />
         <activity
@@ -47,13 +62,7 @@
         <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.register.RegisterStepOne"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
 
         <service
             android:name=".service.AppFirebaseInstanceIdService"

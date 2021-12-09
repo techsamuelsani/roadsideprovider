@@ -2,8 +2,11 @@ package com.techsamuel.roadsideprovider.api;
 
 import com.techsamuel.roadsideprovider.model.AdminUser;
 import com.techsamuel.roadsideprovider.model.DataSavedModel;
+import com.techsamuel.roadsideprovider.model.OrderModel;
+import com.techsamuel.roadsideprovider.model.OrdersModel;
 import com.techsamuel.roadsideprovider.model.ProviderModel;
 import com.techsamuel.roadsideprovider.model.ServiceModel;
+import com.techsamuel.roadsideprovider.model.SettingsModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +80,23 @@ public interface ApiInterface {
     Call<DataSavedModel> updateDeviceInformationToServer(@Field("device_type") String device_type,@Field("user_type") String user_type,@Field("user_id") String user_id, @Field("lang_code") String lang_code,
                                                          @Field("latitude") String latitude, @Field("longitude") String longitude,@Field("fcm") String fcm,
                                                          @Field("device_id") String device_id,@Field("firebase_id") String firebase_id);
+    @FormUrlEncoded
+    @POST("getAllSettings")
+    Call<SettingsModel> getAllSettings(@Field("device_type") String device_type, @Field("lang_code") String lang_code);
+
+    @FormUrlEncoded
+    @POST("changeOrderStatusById")
+    Call<DataSavedModel> changeOrderStatusById(@Field("device_type") String device_type, @Field("lang_code") String lang_code,
+                                               @Field("order_id") String order_id,@Field("input_status") String input_status);
+
+    @FormUrlEncoded
+    @POST("getOrderDetailsById")
+    Call<OrderModel> getOrderDetailsById(@Field("device_type") String device_type, @Field("lang_code") String lang_code,
+                                         @Field("order_id") String order_id);
+    @FormUrlEncoded
+    @POST("getAllOrders")
+    Call<OrdersModel> getAllOrders(@Field("device_type") String device_type, @Field("lang_code") String lang_code,
+                                   @Field("user_type") String user_type, @Field("user_id") String user_id, @Field("order_status_type") String order_status_type);
 
 
 }
