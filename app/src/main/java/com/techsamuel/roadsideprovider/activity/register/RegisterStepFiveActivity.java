@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.basusingh.beautifulprogressdialog.BeautifulProgressDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
@@ -41,6 +42,7 @@ public class RegisterStepFiveActivity extends AppCompatActivity {
     int PICK_IMAGE_STORE_LOGO=6;
     MultipartBody.Part storeLogoFile;
     String provider_id;
+    BeautifulProgressDialog beautifulProgressDialog;
 
 
     @Override
@@ -54,7 +56,14 @@ public class RegisterStepFiveActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_register_step_five);
         init();
+        initBeautifulProgressDialog();
 
+    }
+
+    private void initBeautifulProgressDialog(){
+        beautifulProgressDialog = new BeautifulProgressDialog(this, BeautifulProgressDialog.withLottie, null);
+        beautifulProgressDialog.setLottieLocation("service.json");
+        beautifulProgressDialog.setLottieLoop(true);
     }
 
     private void init(){
@@ -79,6 +88,7 @@ public class RegisterStepFiveActivity extends AppCompatActivity {
     }
 
     private void saveDetails() {
+        beautifulProgressDialog.show();
         MultipartBody.Part store_name = MultipartBody.Part.createFormData("store_name", storeName.getText().toString());
         MultipartBody.Part store_details = MultipartBody.Part.createFormData("store_details", storeDetails.getText().toString());
         MultipartBody.Part providerId = MultipartBody.Part.createFormData("provider_id", provider_id);
@@ -90,6 +100,7 @@ public class RegisterStepFiveActivity extends AppCompatActivity {
         call.enqueue(new Callback<DataSavedModel>() {
             @Override
             public void onResponse(Call<DataSavedModel> call, Response<DataSavedModel> response) {
+                beautifulProgressDialog.dismiss();
                 if(response.body().getStatus()== Config.API_SUCCESS){
                     CommonRequests.goToStep(RegisterStepFiveActivity.this,FirebaseAuth.getInstance().getCurrentUser());
                 }else{
@@ -99,6 +110,7 @@ public class RegisterStepFiveActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<DataSavedModel> call, Throwable t) {
+                beautifulProgressDialog.dismiss();
                 Log.d("UserRegisterActivity",t.getMessage().toString());
                 Tools.showToast(RegisterStepFiveActivity.this,"Connecton to server failed");
             }

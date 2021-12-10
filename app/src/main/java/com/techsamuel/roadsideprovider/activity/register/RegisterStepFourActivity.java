@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basusingh.beautifulprogressdialog.BeautifulProgressDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
@@ -70,6 +71,7 @@ public class RegisterStepFourActivity extends AppCompatActivity {
     String providerId;
     String providerPhone;
     ApiInterface apiInterface;
+    BeautifulProgressDialog beautifulProgressDialog;
 
 
 
@@ -81,10 +83,16 @@ public class RegisterStepFourActivity extends AppCompatActivity {
         providerPhone=FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
         Tools.hideSystemUI(this);
         getIdByPhone(providerPhone);
+        initBeautifulProgressDialog();
 
 
     }
 
+    private void initBeautifulProgressDialog(){
+        beautifulProgressDialog = new BeautifulProgressDialog(this, BeautifulProgressDialog.withLottie, null);
+        beautifulProgressDialog.setLottieLocation("service.json");
+        beautifulProgressDialog.setLottieLoop(true);
+    }
 
 
     private void getIdByPhone(String providerPhone){
@@ -204,6 +212,7 @@ public class RegisterStepFourActivity extends AppCompatActivity {
     }
 
     private void uploadAllDocuments(){
+        beautifulProgressDialog.show();
         ApiInterface apiInterface= ApiServiceGenerator.createService(ApiInterface.class);
         Call<DataSavedModel> call=apiInterface.registerProviderStep2(providerId,providerPhone,
                 nidFrontFile,nidBackFile,toolboxFile,drivingLicenseFile,ownerPhotoFile
@@ -211,6 +220,7 @@ public class RegisterStepFourActivity extends AppCompatActivity {
         call.enqueue(new Callback<DataSavedModel>() {
             @Override
             public void onResponse(Call<DataSavedModel> call, Response<DataSavedModel> response) {
+                beautifulProgressDialog.dismiss();
                 if(response.body().getStatus()== Config.API_SUCCESS){
                     Intent intent=new Intent(RegisterStepFourActivity.this, RegisterStepFiveActivity.class);
                     startActivity(intent);
@@ -222,6 +232,7 @@ public class RegisterStepFourActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<DataSavedModel> call, Throwable t) {
                 Tools.showToast(RegisterStepFourActivity.this,"Retrofit Connecton Failed");
+                beautifulProgressDialog.dismiss();
             }
         });
 
@@ -338,8 +349,9 @@ public class RegisterStepFourActivity extends AppCompatActivity {
             else if(requestCode==PICK_IMAGE_OWNERPHOTO && resultCode==RESULT_OK && data!=null){
                   Bitmap image = (Bitmap) data.getExtras().get("data");
                   ownerPhoto.setImageBitmap(image);
-                  Uri uri=Tools.getImageUriFromBitmap(RegisterStepFourActivity.this,image);
-                  File file=Tools.getFile(RegisterStepFourActivity.this,uri);
+//                  Uri uri=Tools.getImageUriFromBitmap(RegisterStepFourActivity.this,image);
+//                  File file=Tools.getFile(RegisterStepFourActivity.this,uri);
+                File file=Tools.getFileFromBitmap(RegisterStepFourActivity.this,image);
                   RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
                   ownerPhotoFile = MultipartBody.Part.createFormData("owner_photo", file.getName(), requestBody);
             }else{

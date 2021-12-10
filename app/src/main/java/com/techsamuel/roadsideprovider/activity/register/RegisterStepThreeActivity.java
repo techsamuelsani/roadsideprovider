@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.basusingh.beautifulprogressdialog.BeautifulProgressDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
@@ -42,6 +43,7 @@ public class RegisterStepThreeActivity extends AppCompatActivity {
     ApiInterface apiInterface;
     RecyclerView recyclerService;
     ServiceAdapter serviceAdapter;
+    BeautifulProgressDialog beautifulProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,13 @@ public class RegisterStepThreeActivity extends AppCompatActivity {
         init();
         getProviderId();
         fetchAllServices();
+        initBeautifulProgressDialog();
 
+    }
+    private void initBeautifulProgressDialog(){
+        beautifulProgressDialog = new BeautifulProgressDialog(this, BeautifulProgressDialog.withLottie, null);
+        beautifulProgressDialog.setLottieLocation("service.json");
+        beautifulProgressDialog.setLottieLoop(true);
     }
 
     private void getProviderId(){
@@ -86,11 +94,13 @@ public class RegisterStepThreeActivity extends AppCompatActivity {
             this.servicesName.add(services.get(i).getName());
             this.servicesId.add(services.get(i).getId());
         }
+        beautifulProgressDialog.show();
 
         Call<DataSavedModel> call=apiInterface.updateProviderServices(providerId,providerPhone,servicesName,servicesId);
         call.enqueue(new Callback<DataSavedModel>() {
             @Override
             public void onResponse(Call<DataSavedModel> call, Response<DataSavedModel> response) {
+                beautifulProgressDialog.dismiss();
                 if(response.body().getStatus()== Config.API_SUCCESS){
                     Tools.showToast(getApplicationContext(),response.body().getMessage().toString());
                     Intent intent=new Intent(RegisterStepThreeActivity.this,RegisterStepFourActivity.class);
@@ -98,11 +108,14 @@ public class RegisterStepThreeActivity extends AppCompatActivity {
                     intent.putExtra("services",servicesName);
                     startActivity(intent);
                 }
+
+                Tools.showToast(RegisterStepThreeActivity.this,response.body().getMessage().toString());
+
             }
 
             @Override
             public void onFailure(Call<DataSavedModel> call, Throwable t) {
-
+                beautifulProgressDialog.dismiss();
             }
         });
 
@@ -110,7 +123,7 @@ public class RegisterStepThreeActivity extends AppCompatActivity {
     }
 
         public void fetchAllServices(){
-            Call<ServiceModel> call=apiInterface.getAllServices(Config.DEVICE_TYPE,Config.LANG_CODE);
+        Call<ServiceModel> call=apiInterface.getAllServices(Config.DEVICE_TYPE,Config.LANG_CODE);
             call.enqueue(new Callback<ServiceModel>() {
                 @Override
                 public void onResponse(Call<ServiceModel> call, Response<ServiceModel> response) {

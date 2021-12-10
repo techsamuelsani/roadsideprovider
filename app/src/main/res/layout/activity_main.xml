@@ -474,112 +474,11 @@
                     android:text="About Us"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-                <LinearLayout
-                    android:id="@+id/lyt_about"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_page"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="0dp" />
-
-                    <ImageView
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:layout_margin="@dimen/spacing_middle"
-                        app:srcCompat="@drawable/ic_baseline_info_24"
-                        app:tint="@color/colorAccent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="About App" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lyt_terms"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="0dp" />
-
-                    <ImageView
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:layout_margin="@dimen/spacing_middle"
-                        app:srcCompat="@drawable/ic_baseline_pan_tool_24"
-                        app:tint="@color/colorAccent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Terms and Conditions" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lyt_faq"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="0dp" />
-
-                    <ImageView
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:layout_margin="@dimen/spacing_middle"
-                        app:srcCompat="@drawable/ic_baseline_more_24"
-                        app:tint="@color/colorAccent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Faq" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lyt_contact"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="0dp" />
-
-                    <ImageView
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:layout_margin="@dimen/spacing_middle"
-                        app:srcCompat="@drawable/ic_baseline_contact_phone_24"
-                        app:tint="@color/colorAccent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Contact Us" />
-
-                </LinearLayout>
+                    tools:listitem="@layout/item_page"
+                    android:layout_height="wrap_content"/>
                 <LinearLayout
                     android:id="@+id/lyt_rate"
                     android:layout_width="match_parent"

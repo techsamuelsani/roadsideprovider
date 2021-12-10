@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basusingh.beautifulprogressdialog.BeautifulProgressDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -57,7 +58,7 @@ public class RegisterStepOne extends AppCompatActivity {
     private String verificationId;
     private String verificationCode;
     private String inputVerificationCode;
-
+    BeautifulProgressDialog beautifulProgressDialog;
 
 
     @Override
@@ -67,6 +68,13 @@ public class RegisterStepOne extends AppCompatActivity {
         Tools.hideSystemUI(this);
         init();
         checkAuth();
+        initBeautifulProgressDialog();
+    }
+
+    private void initBeautifulProgressDialog(){
+        beautifulProgressDialog = new BeautifulProgressDialog(this, BeautifulProgressDialog.withLottie, null);
+        beautifulProgressDialog.setLottieLocation("service.json");
+        beautifulProgressDialog.setLottieLoop(true);
     }
 
     private void checkAuth() {

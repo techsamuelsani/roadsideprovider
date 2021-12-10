@@ -1,17 +1,21 @@
 package com.techsamuel.roadsideprovider.tools;
 
+
+import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
-
+import androidx.core.content.ContextCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.techsamuel.roadsideprovider.Config;
+import com.techsamuel.roadsideprovider.R;
 import com.techsamuel.roadsideprovider.activity.MainActivity;
 import com.techsamuel.roadsideprovider.activity.register.RegisterStepFiveActivity;
 import com.techsamuel.roadsideprovider.activity.register.RegisterStepFourActivity;
@@ -21,7 +25,6 @@ import com.techsamuel.roadsideprovider.api.ApiInterface;
 import com.techsamuel.roadsideprovider.api.ApiServiceGenerator;
 import com.techsamuel.roadsideprovider.model.DataSavedModel;
 import com.techsamuel.roadsideprovider.model.ProviderModel;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +49,8 @@ public class CommonRequests {
                     Tools.showToast(context,allMessage);
 
                 }else{
+                    AppSharedPreferences.init(context);
+                    AppSharedPreferences.write(Config.SHARED_PREF_PROVIDER_ID,response.body().getId().toString());
                     String step=response.body().getMessage().get(0);
                     //Tools.showToast(context,step);
                     if(step.equals("STEP1")){
@@ -76,39 +81,43 @@ public class CommonRequests {
                        //Tools.showToast(context,"Going to STEP5");
 
                     }else{
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setTitle("Want to reload your previous data?");
-                        builder.setMessage("Our system detected that you have unfinished registration, to start from saved registration click Ok " +
-                                "or if you want to start from afresh click Cancel");
-                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent intent=null;
-                                if(step.equals("STEP2")){
-                                    intent=new Intent(context, RegisterStepThreeActivity.class);
+                        Intent intent=null;
+                        if(step.equals("STEP2")){
+                            intent=new Intent(context, RegisterStepThreeActivity.class);
 
-                                }else if(step.equals("STEP3")){
-                                    intent=new Intent(context, RegisterStepFourActivity.class);
+                        }else if(step.equals("STEP3")){
+                            intent=new Intent(context, RegisterStepFourActivity.class);
 
-                                }else if(step.equals("STEP4")){
-                                    intent=new Intent(context, RegisterStepFiveActivity.class);
-                                }
+                        }else if(step.equals("STEP4")){
+                            intent=new Intent(context, RegisterStepFiveActivity.class);
+                        }
 
-                                if(intent!=null){
-                                    intent.putExtra("phoneNumber",firebaseUser.getPhoneNumber());
-                                    intent.putExtra("firebaseId",firebaseUser.getUid());
-                                    context.startActivity(intent);
-                                }
+                        if(intent!=null){
+                            intent.putExtra("phoneNumber",firebaseUser.getPhoneNumber());
+                            intent.putExtra("firebaseId",firebaseUser.getUid());
+                            context.startActivity(intent);
+                        }
 
-                            }
-                        });
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                            }
-                        });
-                        builder.show();
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                        builder.setTitle("Want to reload your previous data?");
+//                        builder.setMessage("Our system detected that you have unfinished registration, to start from saved registration click Ok " +
+//                                "or if you want to start from afresh click Cancel");
+//                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//
+//                            }
+//                        });
+//                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                            }
+//                        });
+//                        builder.show();
+
 
                     }
 
@@ -124,6 +133,7 @@ public class CommonRequests {
         });
 
     }
+
 
     public static void getIdByPhone(Context context,String providerPhone){
         ApiInterface apiInterface= ApiServiceGenerator.createService(ApiInterface.class);

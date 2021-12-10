@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/lyt_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="@dimen/spacing_middle"
+            android:layout_height="0dp" />
+
+        <ImageView
+            android:id="@+id/page_icon"
+            android:layout_width="@dimen/spacing_mlarge"
+            android:layout_height="@dimen/spacing_mlarge"
+            android:layout_margin="@dimen/spacing_middle"
+            app:srcCompat="@drawable/ic_baseline_info_24"
+            app:tint="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/page_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About App" />
+
+    </LinearLayout>
+
+</LinearLayout>

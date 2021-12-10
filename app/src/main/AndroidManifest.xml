@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".App"
@@ -23,6 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.WizardActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.CurrentOrdersActivity"
             android:exported="false" />
@@ -46,6 +50,9 @@
             android:exported="false" />
         <activity
             android:name=".activity.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.WebViewActivity"
             android:exported="false" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

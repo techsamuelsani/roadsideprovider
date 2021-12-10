@@ -4,6 +4,7 @@ import com.techsamuel.roadsideprovider.model.AdminUser;
 import com.techsamuel.roadsideprovider.model.DataSavedModel;
 import com.techsamuel.roadsideprovider.model.OrderModel;
 import com.techsamuel.roadsideprovider.model.OrdersModel;
+import com.techsamuel.roadsideprovider.model.PageModel;
 import com.techsamuel.roadsideprovider.model.ProviderModel;
 import com.techsamuel.roadsideprovider.model.ServiceModel;
 import com.techsamuel.roadsideprovider.model.SettingsModel;
@@ -97,6 +98,9 @@ public interface ApiInterface {
     @POST("getAllOrders")
     Call<OrdersModel> getAllOrders(@Field("device_type") String device_type, @Field("lang_code") String lang_code,
                                    @Field("user_type") String user_type, @Field("user_id") String user_id, @Field("order_status_type") String order_status_type);
+    @FormUrlEncoded
+    @POST("getPagesByDevicyType")
+    Call<PageModel> getPagesByDevicyType(@Field("device_type") String device_type, @Field("lang_code") String lang_code);
 
 
 }

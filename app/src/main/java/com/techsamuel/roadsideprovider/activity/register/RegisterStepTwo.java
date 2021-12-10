@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.basusingh.beautifulprogressdialog.BeautifulProgressDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
@@ -48,6 +49,7 @@ public class RegisterStepTwo extends AppCompatActivity {
     String phoneNumber;
     String firebaseId;
     Calendar calendar;
+    BeautifulProgressDialog beautifulProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,13 @@ public class RegisterStepTwo extends AppCompatActivity {
         setContentView(R.layout.activity_register_step_two);
         Tools.hideSystemUI(this);
         init();
+        initBeautifulProgressDialog();
 
+    }
+    private void initBeautifulProgressDialog(){
+        beautifulProgressDialog = new BeautifulProgressDialog(this, BeautifulProgressDialog.withLottie, null);
+        beautifulProgressDialog.setLottieLocation("service.json");
+        beautifulProgressDialog.setLottieLoop(true);
     }
     private void init(){
         Intent intent=getIntent();
@@ -135,6 +143,7 @@ public class RegisterStepTwo extends AppCompatActivity {
 
     private void goToNext(String vmake,String vmodel,String plate_no, String vyear,String exp_date,String name,String email,String password,String confirmPassword,String national_id,
                           String firebase_id,String phone){
+        beautifulProgressDialog.show();
         ApiInterface apiInterface=ApiServiceGenerator.createService(ApiInterface.class);
         Call<DataSavedModel> call=apiInterface.registerProviderStep1(
               vmake,vmodel,plate_no,vyear,exp_date,name,
@@ -143,6 +152,7 @@ public class RegisterStepTwo extends AppCompatActivity {
         call.enqueue(new Callback<DataSavedModel>() {
             @Override
             public void onResponse(Call<DataSavedModel> call, Response<DataSavedModel> response) {
+                beautifulProgressDialog.dismiss();
                 if(response.body().getStatus()==Config.API_FAILED){
                     String allMessage="";
                     for(String message:response.body().getMessage()){
@@ -167,6 +177,7 @@ public class RegisterStepTwo extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<DataSavedModel> call, Throwable t) {
+                beautifulProgressDialog.dismiss();
                 Log.d("Api Error",t.getMessage().toString());
 
             }

@@ -1,6 +1,7 @@
 package com.techsamuel.roadsideprovider.tools;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -38,6 +39,7 @@ import com.techsamuel.roadsideprovider.model.DataSavedModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -97,6 +99,19 @@ public class Tools {
         Resources r = c.getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
+    public static void openMarketForRatings(Context context) {
+        try {
+            Uri uri = Uri.parse("market://details?id="+context.getPackageName()+"");
+            Intent goMarket = new Intent(Intent.ACTION_VIEW, uri);
+            context.startActivity(goMarket);
+        }catch (ActivityNotFoundException e){
+            Uri uri = Uri.parse("https://play.google.com/store/apps/details?id="+context.getPackageName()+"");
+            Intent goMarket = new Intent(Intent.ACTION_VIEW, uri);
+            context.startActivity(goMarket);
+        }
+    }
+
     private void showConfirmDialog(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Want to reload your previous data?");
@@ -127,6 +142,33 @@ public class Tools {
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
+    }
+    public static File getFileFromBitmap(Context context,Bitmap bitmap){
+        File f = new File(context.getCacheDir(), "provider_photo");
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos);
+        byte[] bitmapdata = bos.toByteArray();
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return f;
     }
 
     public static File getFile(Context context, Uri uri) throws IOException {

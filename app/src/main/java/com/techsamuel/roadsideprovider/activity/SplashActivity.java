@@ -43,7 +43,7 @@ public class SplashActivity extends AppCompatActivity {
                 Log.d("SplashActivity",response.body().toString());
                 if(response.body().getStatus()== Config.API_SUCCESS){
                     AppSharedPreferences.writeSettingsModel(Config.SHARED_PREF_SETTINGS_MODEL,response.body());
-                    goToLoginScreen();
+                    gotToWizardScreen();
                 }else{
                     Tools.showToast(SplashActivity.this,"There is an error in API");
                     Log.d("MainActivity","Failed to update device information");
@@ -61,12 +61,12 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-    private void goToLoginScreen(){
+    private void gotToWizardScreen(){
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent userLogin = new Intent(SplashActivity.this, RegisterStepOne.class);
+                Intent userLogin = new Intent(SplashActivity.this, WizardActivity.class);
                 startActivity(userLogin);
             }
         }, Config.SPLASH_SCREEN_TIMEOUT);
