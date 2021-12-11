@@ -79,7 +79,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             OriginalViewHolder view = (OriginalViewHolder) holder;
 
             Glide.with(ctx).load(Config.BASE_URL+ordersModel.getOrderDetails().get(position).getServicesImages().get(0)).into(view.orderImage);
-            Glide.with(ctx).load(Config.BASE_URL+ordersModel.getOrderDetails().get(position).getProviderImage()).into(view.storeLogo);
+            Glide.with(ctx).load(Config.BASE_URL+ordersModel.getOrderDetails().get(0).getUserImage()).into(view.storeLogo);
 
             view.lytOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,7 +92,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             view.orderStatus.setText(ordersModel.getData().get(position).getStatus());
             view.orderDate.setText(ordersModel.getOrderDetails().get(position).getDate());
             view.orderPrice.setText(settingsModel.getData().getCurrencySymbol()+" "+ordersModel.getData().get(position).getPrice());
-            view.storeName.setText(ordersModel.getOrderDetails().get(position).getProviderName());
+            view.storeName.setText(ordersModel.getOrderDetails().get(position).getUserName());
 
         }
     }

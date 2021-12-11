@@ -99,7 +99,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements
    // String userId;
     Toolbar toolbar;
     FloatingActionButton floatingActionButton;
-    Button paymentFab;
+    //Button paymentFab;
     TextView serviceName;
     TextView storeName;
     TextView servicePrice;
@@ -121,7 +121,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements
 
     double userBalance;
     double orderAmount;
-    String providerStoreLocation="";
+    String userOrderLocation="";
     double userOrderLat;
     double userOrderLong;
     double providerLat;
@@ -278,7 +278,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements
 
     private void init(){
         floatingActionButton=findViewById(R.id.fab);
-        paymentFab=findViewById(R.id.payment_fab);
+        //paymentFab=findViewById(R.id.payment_fab);
         serviceName=findViewById(R.id.service_name);
         storeName=findViewById(R.id.store_name);
         servicePrice=findViewById(R.id.service_price);
@@ -318,7 +318,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements
         servicesName=servicesName.replace("]","");
 
         serviceName.setText(servicesName);
-        storeName.setText(orderModel.getProviderDetails().get(0).getStoreName());
+        storeName.setText(orderModel.getUserDetails().get(0).getName());
         servicePrice.setText(settingsModel.getData().getCurrencySymbol()+" "+orderModel.getData().get(0).getTotalCost());
 
 
@@ -374,8 +374,8 @@ public class OrderDetailsActivity extends AppCompatActivity implements
 
         if(orderModel.getOrder_status().equals(new AllOrderStatus().Status(Status.active))){
             if(orderModel.getData().get(0).getOrderType().equals(Config.ORDER_TYPE_DELIVERY)){
-                providerStoreLocation=Tools.getAdressFromLatLong(OrderDetailsActivity.this,
-                        orderModel.getProviderDetails().get(0).getLatitude(),orderModel.getProviderDetails().get(0).getLongitude()
+                userOrderLocation=Tools.getAdressFromLatLong(OrderDetailsActivity.this,
+                        orderModel.getData().get(0).getUserLat(),orderModel.getData().get(0).getUserLong()
                 );
                 storeLocation.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -384,37 +384,38 @@ public class OrderDetailsActivity extends AppCompatActivity implements
                     }
                 });
             }else{
-                providerStoreLocation=orderModel.getProviderDetails().get(0).getPhone();
+                userOrderLocation=orderModel.getUserDetails().get(0).getPhone();
                 storeLocation.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        callToProvider(providerStoreLocation);
+                        callToProvider(userOrderLocation);
                     }
                 });
             }
         }else{
-            providerStoreLocation=Tools.getAdressFromLatLong(OrderDetailsActivity.this,
-                    orderModel.getProviderDetails().get(0).getLatitude(),orderModel.getProviderDetails().get(0).getLongitude()
+            userOrderLocation=Tools.getAdressFromLatLong(OrderDetailsActivity.this,
+                    orderModel.getData().get(0).getUserLat(),orderModel.getData().get(0).getUserLong()
             );
 
         }
-        storeLocation.setText(providerStoreLocation);
+        storeLocation.setText(userOrderLocation);
 
         if(orderModel.getOrder_status().equals(new AllOrderStatus().Status(Status.pending))){
-            paymentFab.setVisibility(View.VISIBLE);
+            //paymentFab.setVisibility(View.VISIBLE);
             floatingActionButton.setVisibility(View.GONE);
-            paymentFab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(userBalance>orderAmount){
-                        showConfirmDialog(true);
-                    }else {
-                        showConfirmDialog(false);
-                    }
-                }
-            });
+//            paymentFab.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if(userBalance>orderAmount){
+//                        showConfirmDialog(true);
+//                    }else {
+//                        showConfirmDialog(false);
+//                    }
+//                }
+//            });
         }else{
-            paymentFab.setVisibility(View.GONE);
+            floatingActionButton.setVisibility(View.VISIBLE);
+            //paymentFab.setVisibility(View.GONE);
         }
 
         if(orderModel.getData().get(0).getOrderType().equals(Config.ORDER_TYPE_DELIVERY)){

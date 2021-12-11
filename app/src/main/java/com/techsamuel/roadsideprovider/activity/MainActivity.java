@@ -414,9 +414,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    @Override
-    public void onMapReady(@NonNull MapboxMap mapboxMap) {
-        MainActivity.this.mapboxMap = mapboxMap;
+    private void zoomProviderLocation(){
         LatLng providerStoreLatLng=new LatLng(Double.valueOf(providerModel.getData().get(0).getLatitude()),Double.valueOf(providerModel.getData().get(0).getLongitude()));
         markStoreLocation(providerStoreLatLng);
         @SuppressLint("Range")
@@ -424,10 +422,16 @@ public class MainActivity extends AppCompatActivity implements
         cameraPosition=new CameraPosition.Builder().target(providerStoreLatLng).zoom(12.00).tilt(20.00).build();
         mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000);
         zoomOwnLocation=true;
+    }
+
+
+    @Override
+    public void onMapReady(@NonNull MapboxMap mapboxMap) {
+        MainActivity.this.mapboxMap = mapboxMap;
         mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
-                //enableLocationComponent(style);
+                enableLocationComponent(style);
                 mapboxStyle=style;
                 mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
                     @Override
@@ -449,7 +453,6 @@ public class MainActivity extends AppCompatActivity implements
         });
     }
 
-
     @SuppressWarnings( {"MissingPermission"})
     private void enableLocationComponent(@NonNull Style loadedMapStyle) {
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
@@ -459,6 +462,7 @@ public class MainActivity extends AppCompatActivity implements
             locationComponent.setCameraMode(CameraMode.TRACKING);
             locationComponent.setRenderMode(RenderMode.COMPASS);
             locationComponent.getLocationEngine().getLastLocation(locationEngineCallback);
+            zoomProviderLocation();
 
         } else {
             permissionsManager = new PermissionsManager(this);

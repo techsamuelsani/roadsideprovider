@@ -74,12 +74,13 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
-                        android:layout_alignParentLeft="true"
                         android:id="@id/store_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Store Name"
+                        android:layout_alignParentLeft="true"
+                        android:text="User Name"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/grey_5" />
 
@@ -104,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
-                    android:text="Store Address"
+                    android:text="User Address"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/grey_10" />
 
@@ -597,6 +598,7 @@
         app:srcCompat="@android:drawable/stat_sys_phone_call" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/payment_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
