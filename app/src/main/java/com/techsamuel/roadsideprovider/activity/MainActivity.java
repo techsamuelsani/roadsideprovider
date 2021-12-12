@@ -180,6 +180,11 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onSuccess(LocationEngineResult locationEngineResult) {
                 lastLocation=new LatLng(locationEngineResult.getLastLocation().getLatitude(),locationEngineResult.getLastLocation().getLongitude());
+                CameraPosition cameraPosition;
+                cameraPosition=new CameraPosition.Builder().target(lastLocation).zoom(12.00).tilt(20.00).build();
+                mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000);
+                zoomOwnLocation=true;
+
                 updateDeviceInformationToServer(Config.DEVICE_TYPE,Config.USER_TYPE,AppSharedPreferences.read(Config.SHARED_PREF_PROVIDER_ID,""),
                         Config.LANG_CODE,locationEngineResult.getLastLocation().getLatitude(),
                         locationEngineResult.getLastLocation().getLongitude(),AppSharedPreferences.read(Config.SHARED_PREF_KEY_FCM,""),
@@ -415,13 +420,14 @@ public class MainActivity extends AppCompatActivity implements
 
 
     private void zoomProviderLocation(){
-        LatLng providerStoreLatLng=new LatLng(Double.valueOf(providerModel.getData().get(0).getLatitude()),Double.valueOf(providerModel.getData().get(0).getLongitude()));
-        markStoreLocation(providerStoreLatLng);
-        @SuppressLint("Range")
-        CameraPosition cameraPosition;
-        cameraPosition=new CameraPosition.Builder().target(providerStoreLatLng).zoom(12.00).tilt(20.00).build();
-        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000);
-        zoomOwnLocation=true;
+            LatLng providerStoreLatLng=new LatLng(Double.valueOf(providerModel.getData().get(0).getLatitude()),Double.valueOf(providerModel.getData().get(0).getLongitude()));
+            markStoreLocation(providerStoreLatLng);
+            @SuppressLint("Range")
+            CameraPosition cameraPosition;
+            cameraPosition=new CameraPosition.Builder().target(providerStoreLatLng).zoom(12.00).tilt(20.00).build();
+            mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000);
+            zoomOwnLocation=false;
+
     }
 
 
@@ -462,7 +468,10 @@ public class MainActivity extends AppCompatActivity implements
             locationComponent.setCameraMode(CameraMode.TRACKING);
             locationComponent.setRenderMode(RenderMode.COMPASS);
             locationComponent.getLocationEngine().getLastLocation(locationEngineCallback);
-            zoomProviderLocation();
+            if(!providerModel.getData().get(0).getLatitude().equals("0")&&!providerModel.getData().get(0).getLatitude().equals("0")){
+                zoomProviderLocation();
+            }
+
 
         } else {
             permissionsManager = new PermissionsManager(this);
