@@ -61,6 +61,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'com.balysv:material-ripple:1.0.2'
     implementation 'com.github.basusingh:BeautifulProgressDialog:1.001' //Beautiful progress dialog library
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0' //Spinkit progressbar library
 
     implementation('com.kishan.askpermission:askpermission:1.0.3', { //Ask Permission at once
         exclude group: 'com.android.support'

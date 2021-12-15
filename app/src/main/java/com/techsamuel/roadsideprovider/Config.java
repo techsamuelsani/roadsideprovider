@@ -16,7 +16,7 @@ public class Config {
     public static final String SHARED_PREF_SETTINGS_MODEL = "settings_model";
     public static final String SHARED_PREF_DEVICE_ID = "device_id";
     public static final String SHARED_PREF_ORDER_MODEL = "order_model";
-    public static final long SPLASH_SCREEN_TIMEOUT = 2000;
+    public static final long SPLASH_SCREEN_TIMEOUT = 0;
     public static String ORDER_TYPE_DELIVERY="delivery";
     public static String ORDER_TYPE_PICKUP="pickup";
     public static int PHONE_VERIFICATION_CODE=101;

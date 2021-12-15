@@ -13,12 +13,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -32,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -58,10 +54,6 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
 import com.techsamuel.roadsideprovider.activity.register.RegisterStepOne;
@@ -297,7 +289,16 @@ public class MainActivity extends AppCompatActivity implements
         lytCurrentOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,CurrentOrdersActivity.class);
+                Intent intent=new Intent(MainActivity.this, AllOrdersActivity.class);
+                intent.putExtra("type","current");
+                startActivity(intent);
+            }
+        });
+        lytPreviousOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, AllOrdersActivity.class);
+                intent.putExtra("type","previous");
                 startActivity(intent);
             }
         });
@@ -305,6 +306,13 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 Tools.openMarketForRatings(MainActivity.this);
+            }
+        });
+        lytMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,MessageActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -26,14 +26,18 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.WizardActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
-            android:name=".activity.CurrentOrdersActivity"
+            android:screenOrientation="portrait"
+            android:name=".activity.AllOrdersActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.PreOrderDetailsActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -43,15 +47,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.OrderDetailsActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.register.RegisterStepFiveActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.ProfileActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.WebViewActivity"
             android:exported="false" />
         <!--
@@ -62,12 +70,20 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <activity android:name=".activity.register.RegisterStepFourActivity" />
-        <activity android:name=".activity.register.RegisterStepThreeActivity" />
-        <activity android:name=".activity.register.PhoneVerificationActivity" />
-        <activity android:name=".activity.register.RegisterStepTwo" />
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.register.RegisterStepFourActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.register.RegisterStepThreeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.register.PhoneVerificationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.register.RegisterStepTwo"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MessageActivity"
+            android:screenOrientation="portrait"/>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.register.RegisterStepOne"
             android:exported="false" />
 

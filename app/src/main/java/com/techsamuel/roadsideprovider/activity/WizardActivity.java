@@ -47,17 +47,12 @@ public class WizardActivity extends AppCompatActivity implements PermissionCallb
     private MyViewPagerAdapter myViewPagerAdapter;
     private Button btn_got_it;
     private String title_array[] = {
-            "Ready to fly",
-            "Post in a different way",
-            "FlyPost will connect you",
-            "Enjoy with FlyPost"
+            "Demo title 1",
+            "Demo title 2",
+            "Demo title 3",
+            "Demo title 4"
     };
-    private String description_array[] = {
-            "FlyPost is a creative social media depending on user’s location.",
-            " Create a Post around you or post your words all over the world",
-            "The valuable post will continue and reach more locations on the world",
-            "Meet new people and discover new places",
-    };
+    private String description_array[];
     private int about_images_array[] = {
             R.drawable.ic_baseline_attractions_24,
             R.drawable.ic_baseline_navigation_24,
@@ -77,6 +72,13 @@ public class WizardActivity extends AppCompatActivity implements PermissionCallb
         Tools.hideSystemUI(this);
         AppSharedPreferences.init(this);
         setContentView(R.layout.activity_wizard);
+
+        description_array= new String[]{
+                getString(R.string.medium_lorem_ipsum),
+                getString(R.string.medium_lorem_ipsum),
+                getString(R.string.medium_lorem_ipsum),
+                getString(R.string.medium_lorem_ipsum),
+        };
 
 
         boolean isPermissionDenied=AppSharedPreferences.read("permissionDenied",true);

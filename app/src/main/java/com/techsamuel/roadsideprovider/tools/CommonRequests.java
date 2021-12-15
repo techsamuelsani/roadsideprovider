@@ -54,27 +54,28 @@ public class CommonRequests {
                     String step=response.body().getMessage().get(0);
                     //Tools.showToast(context,step);
                     if(step.equals("STEP1")){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setTitle("Want to continue with "+firebaseUser.getPhoneNumber()+" this phone number?");
-                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent intent=new Intent(context, RegisterStepTwo.class);
-                                intent.putExtra("phoneNumber",firebaseUser.getPhoneNumber());
-                                intent.putExtra("firebaseId",firebaseUser.getUid());
-                                if(intent!=null){
-                                    context.startActivity(intent);
-                                }
-
-                            }
-                        });
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        });
-                        builder.show();
+                        Intent intent=new Intent(context, RegisterStepTwo.class);
+                        intent.putExtra("phoneNumber",firebaseUser.getPhoneNumber());
+                        intent.putExtra("firebaseId",firebaseUser.getUid());
+                        if(intent!=null){
+                            context.startActivity(intent);
+                        }
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                        builder.setTitle("Want to continue with "+firebaseUser.getPhoneNumber()+" this phone number?");
+//                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//
+//                            }
+//                        });
+//                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                            }
+//                        });
+//                        builder.show();
 
                     }else if(step.equals("STEP5")){
                        getProviderByPhone(context);
