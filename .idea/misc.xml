@@ -27,13 +27,19 @@
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/item_orderpage_service.xml" value="0.29347826086956524" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/item_page.xml" value="0.3596014492753623" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/item_wizard.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/drawable-v24/ic_arrow_downward.xml" value="0.16302083333333334" />
+        <entry key="app/src/main/res/drawable/ic_arrow_downward.xml" value="0.16302083333333334" />
         <entry key="app/src/main/res/drawable/ic_expand_arrow.xml" value="0.14322916666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/activity_message.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/activity_order_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_phone_verification.xml" value="0.2453125" />
+        <entry key="app/src/main/res/layout/activity_pre_order_details.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/activity_register_step_one.xml" value="0.2453125" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.24895833333333334" />
+        <entry key="app/src/main/res/layout/activity_wallet.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/item_message.xml" value="0.24895833333333334" />
+        <entry key="app/src/main/res/layout/item_transaction.xml" value="0.24895833333333334" />
       </map>
     </option>
   </component>

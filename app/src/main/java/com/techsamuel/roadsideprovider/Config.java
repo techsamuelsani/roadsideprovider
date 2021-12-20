@@ -39,4 +39,5 @@ public class Config {
     //Writable Variable Declaratio
     public static List<ServiceModel.Datum> ServiceModelData=new ArrayList<ServiceModel.Datum>();
 
+    public static Double balance=0.0;
 }

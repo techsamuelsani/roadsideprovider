@@ -171,6 +171,30 @@ public class ProviderModel {
         @Expose
         private String status;
 
+        @SerializedName("availability")
+        @Expose
+        private String availability;
+
+        @SerializedName("application")
+        @Expose
+        private String application;
+
+        public String getAvailability() {
+            return availability;
+        }
+
+        public void setAvailability(String availability) {
+            this.availability = availability;
+        }
+
+        public String getApplication() {
+            return application;
+        }
+
+        public void setApplication(String application) {
+            this.application = application;
+        }
+
         public String getId() {
             return id;
         }

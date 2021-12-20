@@ -47,6 +47,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -259,6 +260,12 @@ public class Tools {
         return address;
 
 
+    }
+    public static int generateRandomInt(int minimum,int maximum){
+        Random rn = new Random();
+        int range = maximum - minimum + 1;
+        int randomNum =  rn.nextInt(range) + minimum;
+        return randomNum;
     }
 
 

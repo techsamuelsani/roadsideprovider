@@ -20,9 +20,11 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
 import com.techsamuel.roadsideprovider.activity.MainActivity;
+import com.techsamuel.roadsideprovider.activity.MessageActivity;
 import com.techsamuel.roadsideprovider.activity.OrderDetailsActivity;
 import com.techsamuel.roadsideprovider.activity.PreOrderDetailsActivity;
 import com.techsamuel.roadsideprovider.tools.AppSharedPreferences;
+import com.techsamuel.roadsideprovider.tools.Tools;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -68,7 +70,10 @@ public class AppFirebaseInstanceIdService extends FirebaseMessagingService {
             String cover
             ) {
 
-        int NOTIFICATION_ID = Integer.parseInt(id);
+        int NOTIFICATION_ID = Tools.generateRandomInt(1,100000);
+        if(type.equals("order")){
+            NOTIFICATION_ID = Integer.parseInt(id);
+        }
 
         Bitmap coverImage = getBitmapfromUrl(cover);
         Bitmap iconImage=getBitmapfromUrl(icon);
@@ -106,8 +111,13 @@ public class AppFirebaseInstanceIdService extends FirebaseMessagingService {
         if (iconImage!=null){
             builder.setLargeIcon(iconImage);
         }
-        Intent resultIntent = new Intent(this, PreOrderDetailsActivity.class);
-        resultIntent.putExtra("order_id",id);
+        Intent resultIntent=null;
+        if(type.equals("order")){
+            resultIntent = new Intent(this, PreOrderDetailsActivity.class);
+            resultIntent.putExtra("order_id",id);
+        }else if(type.equals("admin")){
+            resultIntent = new Intent(this, MessageActivity.class);
+        }
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntentWithParentStack(resultIntent);
         PendingIntent resultPendingIntent =

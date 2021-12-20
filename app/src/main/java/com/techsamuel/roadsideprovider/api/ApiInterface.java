@@ -10,6 +10,7 @@ import com.techsamuel.roadsideprovider.model.ProviderModel;
 import com.techsamuel.roadsideprovider.model.ReviewReasonModel;
 import com.techsamuel.roadsideprovider.model.ServiceModel;
 import com.techsamuel.roadsideprovider.model.SettingsModel;
+import com.techsamuel.roadsideprovider.model.TransactionModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,6 +114,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("getPagesByDevicyType")
     Call<PageModel> getPagesByDevicyType(@Field("device_type") String device_type, @Field("lang_code") String lang_code);
+
+    @FormUrlEncoded
+    @POST("getAllTransactionById")
+    Call<TransactionModel> getAllTransactionById(@Field("user_type") String user_type, @Field("user_id") String user_id);
 
     @FormUrlEncoded
     @POST("getMessageByTypeAndId")

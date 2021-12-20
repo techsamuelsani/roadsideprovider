@@ -215,21 +215,31 @@ public class MainActivity extends AppCompatActivity implements
         logout=findViewById(R.id.logout);
         lytProfile=findViewById(R.id.lyt_profile);
 
-        if(providerModel.getData().get(0).getStatus().equals("0")){
+        if(providerModel.getData().get(0).getApplication().equals("review")){
             isActivated=false;
-            txtCircle.setText("Not Activated");
+            txtCircle.setText("In Review");
             imgCircle.setImageResource(R.drawable.ic_baseline_lens_yellow);
             txtStatus.setText("Waiting...");
-        }else if(providerModel.getData().get(0).getStatus().equals("1")){
-            txtCircle.setText("Online");
-            imgCircle.setImageResource(R.drawable.ic_baseline_lens_green);
-            txtStatus.setText("Go to Offline");
-            isActivated=true;
-        }else{
-            txtCircle.setText("Offline");
+        }else  if(providerModel.getData().get(0).getApplication().equals("rejected")){
+            isActivated=false;
+            txtCircle.setText("Rejected");
             imgCircle.setImageResource(R.drawable.ic_baseline_lens_red);
-            txtStatus.setText("Go to Online");
+            txtStatus.setText("Please Resubmit");
+        }
+        else if(providerModel.getData().get(0).getApplication().equals("accepted")){
+            if(providerModel.getData().get(0).getAvailability().equals("0")){
+                txtCircle.setText("Offline");
+                imgCircle.setImageResource(R.drawable.ic_baseline_lens_red);
+                txtStatus.setText("Go to Online");
+
+            }else if(providerModel.getData().get(0).getAvailability().equals("1")){
+                txtCircle.setText("Online");
+                imgCircle.setImageResource(R.drawable.ic_baseline_lens_green);
+                txtStatus.setText("Go to Offline");
+
+            }
             isActivated=true;
+
         }
 
         providerName.setText(providerModel.getData().get(0).getStoreName());
@@ -283,6 +293,13 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        lytWallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,WalletActivity.class);
                 startActivity(intent);
             }
         });
