@@ -1,28 +1,32 @@
 package com.techsamuel.roadsideprovider.activity;
 
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconSize;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,37 +35,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.mapbox.android.core.location.LocationEngineCallback;
-import com.mapbox.android.core.location.LocationEngineResult;
-import com.mapbox.android.core.permissions.PermissionsListener;
-import com.mapbox.android.core.permissions.PermissionsManager;
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.annotations.Icon;
-import com.mapbox.mapboxsdk.annotations.IconFactory;
-import com.mapbox.mapboxsdk.annotations.Marker;
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.location.LocationComponent;
-import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
-import com.mapbox.mapboxsdk.location.modes.CameraMode;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.maps.Style;
+import com.google.firebase.database.DataSnapshot;
 import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
 import com.techsamuel.roadsideprovider.activity.register.RegisterStepOne;
 import com.techsamuel.roadsideprovider.adapter.PageAdapter;
 import com.techsamuel.roadsideprovider.api.ApiInterface;
 import com.techsamuel.roadsideprovider.api.ApiServiceGenerator;
+import com.techsamuel.roadsideprovider.firebase_db.DatabaseReferenceName;
+import com.techsamuel.roadsideprovider.firebase_db.DatabaseViewModel;
 import com.techsamuel.roadsideprovider.listener.PageItemClickListener;
 import com.techsamuel.roadsideprovider.model.DataSavedModel;
+import com.techsamuel.roadsideprovider.model.OrderRequest;
 import com.techsamuel.roadsideprovider.model.PageModel;
 import com.techsamuel.roadsideprovider.model.ProviderModel;
 import com.techsamuel.roadsideprovider.tools.AppSharedPreferences;
@@ -74,15 +76,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements
-        OnMapReadyCallback, PermissionsListener{
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private MapView mapView;
-    private PermissionsManager permissionsManager;
-    private MapboxMap mapboxMap;
-    LocationEngineCallback<LocationEngineResult> locationEngineCallback;
-    Marker clickOnMapMaker;
-    Marker providerStoreMarker;
     LinearLayout lytStatus;
     Button btnUpdateLocation;
     LatLng selectedLocation;
@@ -93,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements
     LatLng lastLocation=null;
     public static ProviderModel providerModel;
     FloatingActionButton floatingActionButton;
-    Style mapboxStyle;
     boolean isActivated;
     TextView providerName;
     ImageView providerImage;
@@ -108,25 +102,32 @@ public class MainActivity extends AppCompatActivity implements
     TextView balance;
     ImageButton logout;
     LinearLayout lytProfile;
-    boolean zoomOwnLocation=false;
     RecyclerView recyclerPage;
+    GoogleMap mMap;
 
+    Marker newStoreMarker = null;
+    Marker previousStoreMarker = null;
+    Marker currentLocationMarker=null;
 
+    FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppSharedPreferences.init(this);
         providerModel=AppSharedPreferences.readProviderModel(Config.SHARED_PREF_PROVIDER_MODEL,"");
-        Mapbox.getInstance(this,getString(R.string.mapbox_access_token));
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         setContentView(R.layout.activity_main);
-        mapView=(MapView)findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         //Tools.hideSystemUI(this);
-        init();
+        init(false);
+        initView();
         initSideMenuItem();
+        getNewOrder();
     }
+
 
     private void initSideMenuItem() {
         recyclerPage = findViewById(R.id.recycler_page);
@@ -163,37 +164,149 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
     }
+    int counter=0;
 
-
-
-    private void init(){
-        //CommonRequests.updateFcmToServer(this);
-        locationEngineCallback=new LocationEngineCallback<LocationEngineResult>() {
+    private void getNewOrder(){
+        DatabaseViewModel databaseViewModel=new DatabaseViewModel();
+        databaseViewModel.fetchOrderRequest();
+        databaseViewModel.fetchedOrderRequest.observe(this, new Observer<DataSnapshot>() {
             @Override
-            public void onSuccess(LocationEngineResult locationEngineResult) {
-                lastLocation=new LatLng(locationEngineResult.getLastLocation().getLatitude(),locationEngineResult.getLastLocation().getLongitude());
-                CameraPosition cameraPosition;
-                cameraPosition=new CameraPosition.Builder().target(lastLocation).zoom(12.00).tilt(20.00).build();
-                mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000);
-                zoomOwnLocation=true;
+            public void onChanged(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    OrderRequest orderRequest = snapshot.getValue(OrderRequest.class);
+                    if(orderRequest.getProvider_id()==Integer.parseInt(providerModel.getData().get(0).getId())){
+                        if(!orderRequest.isAccepted()&&!orderRequest.isRejected()){
+                            counter++;
+                           // popUpOrderSheet(orderRequest);
+                            new PopUpOrderSheet(MainActivity.this,orderRequest).show();
 
-                updateDeviceInformationToServer(Config.DEVICE_TYPE,Config.USER_TYPE,AppSharedPreferences.read(Config.SHARED_PREF_PROVIDER_ID,""),
-                        Config.LANG_CODE,locationEngineResult.getLastLocation().getLatitude(),
-                        locationEngineResult.getLastLocation().getLongitude(),AppSharedPreferences.read(Config.SHARED_PREF_KEY_FCM,""),
-                        AppSharedPreferences.read(Config.SHARED_PREF_DEVICE_ID,""),FirebaseAuth.getInstance().getCurrentUser().getUid());
-
+                        }
+                    }
+                }
+                Log.d("counter",String.valueOf(counter));
             }
+        });
 
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        double providerLat=Double.valueOf(providerModel.getData().get(0).getLatitude());
+        double providerLong=Double.valueOf(providerModel.getData().get(0).getLongitude());
+        LatLng storeLocation = new LatLng(providerLat, providerLong);
+        previousStoreMarker=mMap.addMarker(new MarkerOptions().position(storeLocation).title("Marker in Provider Store"));
+        previousStoreMarker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.green_marker));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(storeLocation));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(providerLat, providerLong), 12.0f));
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Tools.showToast(MainActivity.this,"Location Updates Failed, please turn on gps");
-                updateDeviceInformationToServer(Config.DEVICE_TYPE,Config.USER_TYPE,AppSharedPreferences.read(Config.SHARED_PREF_PROVIDER_ID,""),
-                        Config.LANG_CODE,0, 0,
-                        AppSharedPreferences.read(Config.SHARED_PREF_KEY_FCM,""),
-                        AppSharedPreferences.read(Config.SHARED_PREF_DEVICE_ID,""),FirebaseAuth.getInstance().getCurrentUser().getUid());
-
+            public void onMapClick(@NonNull LatLng latLng) {
+                selectedLocation=latLng;
+                if(newStoreMarker!=null){
+                    newStoreMarker.remove();
+                }
+                newStoreMarker=mMap.addMarker(new MarkerOptions().position(latLng).title("Set Store Location Here"));
+                setButtonVisible();
+                setButtonInvisible();
             }
-        };
+        });
+    }
+
+
+    class PopUpOrderSheet{
+        private BottomSheetBehavior mBehavior;
+        private BottomSheetDialog mBottomSheetDialog;
+        private View bottom_sheet;
+        EditText serviceName;
+        EditText orderType;
+        EditText location;
+        EditText paymentType;
+        EditText approxMinute;
+        EditText approxKm;
+        Button acceptBtn;
+        Button rejectBtn;
+        Context context;
+        OrderRequest orderRequest;
+        public PopUpOrderSheet(Context context,OrderRequest orderRequest){
+            this.context=context;
+            this.orderRequest=orderRequest;
+            bottom_sheet = findViewById(R.id.bottom_sheet);
+            mBehavior = BottomSheetBehavior.from(bottom_sheet);
+            if (mBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                mBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+            final View view = getLayoutInflater().inflate(R.layout.sheet_filter, null);
+            mBottomSheetDialog = new BottomSheetDialog(context);
+            mBottomSheetDialog.setContentView(view);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mBottomSheetDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
+            mBottomSheetDialog.setCancelable(false);
+
+            serviceName=view.findViewById(R.id.service_name);
+            orderType=view.findViewById(R.id.order_type);
+            location=view.findViewById(R.id.location);
+            paymentType=view.findViewById(R.id.payment_type);
+            approxMinute=view.findViewById(R.id.approx_minutes);
+            approxKm=view.findViewById(R.id.approx_km);
+            acceptBtn=view.findViewById(R.id.btn_accept);
+            rejectBtn=view.findViewById(R.id.btn_reject);
+
+        }
+        public void show(){
+            mBottomSheetDialog.show();
+            serviceName.setText(orderRequest.getService_name());
+            orderType.setText("Order type: "+orderRequest.getOrder_type());
+            location.setText(Tools.getAdressFromLatLong(MainActivity.this,String.valueOf(orderRequest.getUserLat()),String.valueOf(orderRequest.getUserLong())));
+            paymentType.setText("Payment type: "+orderRequest.getPayment_type());
+            approxMinute.setText("Approx minutes: "+orderRequest.getTotalMinutes());
+            approxKm.setText("Approx distance: "+orderRequest.getTotalKms()+" Km");
+            acceptBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeAcceptOrRejectStatus(orderRequest, DatabaseReferenceName.ACCEPT,true,mBottomSheetDialog);
+                }
+            });
+
+            rejectBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeAcceptOrRejectStatus(orderRequest, DatabaseReferenceName.REJECT,true,mBottomSheetDialog);
+                }
+            });
+        }
+
+
+
+    }
+    void changeAcceptOrRejectStatus(OrderRequest orderRequest,String type,boolean value,BottomSheetDialog mBottomSheetDialog){
+        DatabaseViewModel databaseViewModel=new DatabaseViewModel();
+        databaseViewModel.fetchOrderRequest();
+        databaseViewModel.fetchedOrderRequest.observe(MainActivity.this, new Observer<DataSnapshot>() {
+            @Override
+            public void onChanged(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    OrderRequest getRequest = snapshot.getValue(OrderRequest.class);
+                    if(getRequest.getId()==orderRequest.getId()){
+                        databaseViewModel.addAccepOrRejecttInDatabase(type,value,snapshot);
+                        databaseViewModel.successAddAcceptOrReject.observe(MainActivity.this, new Observer<Boolean>() {
+                            @Override
+                            public void onChanged(Boolean aBoolean) {
+                                mBottomSheetDialog.cancel();
+                            }
+                        });
+                    }
+
+                }
+            }
+        });
+    }
+
+    void initView(){
+
         initNavigationMenu();
         lytStatus=findViewById(R.id.lyt_status);
         btnUpdateLocation=findViewById(R.id.btn_update_location);
@@ -243,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         providerName.setText(providerModel.getData().get(0).getStoreName());
-                 Glide
+        Glide
                 .with(this)
                 .load(Config.BASE_URL+providerModel.getData().get(0).getStorePhoto())
                 .centerCrop()
@@ -266,15 +379,17 @@ public class MainActivity extends AppCompatActivity implements
         btnUpdateLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                previousStoreMarker.remove();
+                newStoreMarker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.green_marker));
                 CommonRequests.updateLocationToServer(MainActivity.this,selectedLocation);
-                markStoreLocation(selectedLocation);
+                //markStoreLocation(selectedLocation);
 
             }
         });
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                enableLocationComponent(mapboxStyle);
+                init(true);
             }
         });
         lytExit.setOnClickListener(new View.OnClickListener() {
@@ -306,17 +421,13 @@ public class MainActivity extends AppCompatActivity implements
         lytCurrentOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, AllOrdersActivity.class);
-                intent.putExtra("type","current");
-                startActivity(intent);
+
             }
         });
         lytPreviousOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, AllOrdersActivity.class);
-                intent.putExtra("type","previous");
-                startActivity(intent);
+
             }
         });
         lytRate.setOnClickListener(new View.OnClickListener() {
@@ -332,8 +443,42 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private void init(boolean locationBtn){
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            Log.d("DeviceLocation",location.toString());
+                            // Logic to handle location object
+                        updateDeviceInformationToServer(Config.DEVICE_TYPE,Config.USER_TYPE,AppSharedPreferences.read(Config.SHARED_PREF_PROVIDER_ID,""),
+                        Config.LANG_CODE,location.getLatitude(),
+                        location.getLongitude(),AppSharedPreferences.read(Config.SHARED_PREF_KEY_FCM,""),
+                        AppSharedPreferences.read(Config.SHARED_PREF_DEVICE_ID,""),FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        if(mMap!=null && locationBtn){
+                            LatLng currentLatLng=new LatLng(location.getLatitude(),location.getLongitude());
+                            currentLocationMarker=mMap.addMarker(new MarkerOptions().position(currentLatLng).title("Marker in current location"));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12.0f));
+                        }
+
+                        }else{
+                         updateDeviceInformationToServer(Config.DEVICE_TYPE,Config.USER_TYPE,AppSharedPreferences.read(Config.SHARED_PREF_PROVIDER_ID,""),
+                        Config.LANG_CODE,0, 0,
+                        AppSharedPreferences.read(Config.SHARED_PREF_KEY_FCM,""),
+                        AppSharedPreferences.read(Config.SHARED_PREF_DEVICE_ID,""),FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        }
+                    }
+                });
+
 
     }
+
 
     private void updateDeviceInformationToServer(String deviceType,String userType,String userId, String langCode, double latitude, double longitude,
                                                  String fcm, String device_id,String firebase_id) {
@@ -344,8 +489,9 @@ public class MainActivity extends AppCompatActivity implements
         call.enqueue(new Callback<DataSavedModel>() {
             @Override
             public void onResponse(Call<DataSavedModel> call, Response<DataSavedModel> response) {
-                //Tools.showToast(MainActivity.this,response.body().getMessage().toString());
-                Log.d("MainActivity",response.body().toString());
+                Log.d("Response",response.toString());
+                Tools.showToast(MainActivity.this,response.body().getMessage().toString());
+               Log.d("MainActivity",response.body().toString());
                 if(response.body().getStatus()== Config.API_SUCCESS){
                     Log.d("MainActivity","Device information updated successfully");
                     Tools.showToast(MainActivity.this,"Device information updated successfully");
@@ -396,16 +542,7 @@ public class MainActivity extends AppCompatActivity implements
                 .show();
     }
 
-    private void markStoreLocation(LatLng latLng){
-            IconFactory iconFactory = IconFactory.getInstance(MainActivity.this);
-            Icon icon = iconFactory.fromResource(R.drawable.green_marker);
-            MarkerOptions providerStoreMarkerOptions = new MarkerOptions().position(latLng).title("Provider Store Location").icon(icon);
-            if(providerStoreMarker!=null){
-                mapboxMap.removeMarker(providerStoreMarker);
-            }
-            providerStoreMarker=mapboxMap.addMarker(providerStoreMarkerOptions);
 
-    }
 
     private void initNavigationMenu() {
         ImageView drawerIcon=findViewById(R.id.drawer_icon);
@@ -444,132 +581,48 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    private void zoomProviderLocation(){
-            LatLng providerStoreLatLng=new LatLng(Double.valueOf(providerModel.getData().get(0).getLatitude()),Double.valueOf(providerModel.getData().get(0).getLongitude()));
-            markStoreLocation(providerStoreLatLng);
-            @SuppressLint("Range")
-            CameraPosition cameraPosition;
-            cameraPosition=new CameraPosition.Builder().target(providerStoreLatLng).zoom(12.00).tilt(20.00).build();
-            mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000);
-            zoomOwnLocation=false;
-
-    }
-
-
-    @Override
-    public void onMapReady(@NonNull MapboxMap mapboxMap) {
-        MainActivity.this.mapboxMap = mapboxMap;
-        mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
-            @Override
-            public void onStyleLoaded(@NonNull Style style) {
-                enableLocationComponent(style);
-                mapboxStyle=style;
-                mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
-                    @Override
-                    public boolean onMapClick(@NonNull LatLng point) {
-                        if(clickOnMapMaker!=null){
-                            mapboxMap.removeMarker(clickOnMapMaker);
-                        }
-                       MarkerOptions mapClickMarker = new MarkerOptions().position(point).title("Set Location");
-                       selectedLocation=point;
-                       clickOnMapMaker=mapboxMap.addMarker(mapClickMarker);
-                       setButtonVisible();
-                       setButtonInvisible();
-                       return true;
-                    }
-                });
-
-
-            }
-        });
-    }
-
-    @SuppressWarnings( {"MissingPermission"})
-    private void enableLocationComponent(@NonNull Style loadedMapStyle) {
-        if (PermissionsManager.areLocationPermissionsGranted(this)) {
-            LocationComponent locationComponent = mapboxMap.getLocationComponent();
-            locationComponent.activateLocationComponent(LocationComponentActivationOptions.builder(this, loadedMapStyle).build());
-            locationComponent.setLocationComponentEnabled(true);
-            locationComponent.setCameraMode(CameraMode.TRACKING);
-            locationComponent.setRenderMode(RenderMode.COMPASS);
-            locationComponent.getLocationEngine().getLastLocation(locationEngineCallback);
-            if(!providerModel.getData().get(0).getLatitude().equals("0")&&!providerModel.getData().get(0).getLatitude().equals("0")){
-                zoomProviderLocation();
-            }
-
-
-        } else {
-            permissionsManager = new PermissionsManager(this);
-            permissionsManager.requestLocationPermissions(this);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    @Override
-    public void onExplanationNeeded(List<String> permissionsToExplain) {
-        Toast.makeText(this, permissionsToExplain.toString(), Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onPermissionResult(boolean granted) {
-        if (granted) {
-            mapboxMap.getStyle(new Style.OnStyleLoaded() {
-                @Override
-                public void onStyleLoaded(@NonNull Style style) {
-                    enableLocationComponent(style);
-                }
-            });
-        } else {
-            finish();
-        }
-    }
 
     @Override
     @SuppressWarnings( {"MissingPermission"})
     protected void onStart() {
         super.onStart();
-        mapView.onStart();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mapView.onResume();
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mapView.onPause();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mapView.onStop();
+
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mapView.onDestroy();
+
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mapView.onLowMemory();
+
     }
 
     @Override

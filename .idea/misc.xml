@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/sheet_filter.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/btn_rect_black_grey.xml" value="0.2095" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/edit_text_round_bg_outline.xml" value="0.2095" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/ic_arrow_drop.xml" value="0.35185185185185186" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/ic_baseline_navigation_24.xml" value="0.35185185185185186" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/ic_baseline_payments_24.xml" value="0.35185185185185186" />
@@ -27,6 +31,7 @@
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/item_orderpage_service.xml" value="0.29347826086956524" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/item_page.xml" value="0.3596014492753623" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/item_wizard.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/layout/sheet_filter.xml" value="0.33559782608695654" />
         <entry key="app/src/main/res/drawable-v24/ic_arrow_downward.xml" value="0.16302083333333334" />
         <entry key="app/src/main/res/drawable/ic_arrow_downward.xml" value="0.16302083333333334" />
         <entry key="app/src/main/res/drawable/ic_expand_arrow.xml" value="0.14322916666666666" />
@@ -46,7 +51,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

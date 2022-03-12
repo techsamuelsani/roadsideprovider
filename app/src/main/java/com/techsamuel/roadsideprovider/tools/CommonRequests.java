@@ -1,7 +1,6 @@
 package com.techsamuel.roadsideprovider.tools;
 
 
-import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,9 +10,11 @@ import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.mapbox.mapboxsdk.geometry.LatLng;
+
 import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
 import com.techsamuel.roadsideprovider.activity.MainActivity;
@@ -161,8 +162,8 @@ public class CommonRequests {
 
     public static void updateLocationToServer(Context context, LatLng location){
         AppSharedPreferences.init(context);
-        String latitude= String.valueOf(location.getLatitude());
-        String longitude= String.valueOf(location.getLongitude());
+        String latitude= String.valueOf(location.latitude);
+        String longitude= String.valueOf(location.longitude);
         String fcm=AppSharedPreferences.read(Config.SHARED_PREF_KEY_FCM,"");
         ApiInterface apiInterface= ApiServiceGenerator.createService(ApiInterface.class);
         String providerId=AppSharedPreferences.read(Config.SHARED_PREF_PROVIDER_ID,"");

@@ -11,15 +11,16 @@
     tools:context=".activity.MainActivity">
 
 
-    <FrameLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.mapbox.mapboxsdk.maps.MapView
-            android:id="@+id/mapView"
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -152,8 +153,12 @@
             android:background="@color/colorAccent"
             android:layout_margin="16dp" />
 
-    </FrameLayout>
-
+        <FrameLayout
+            android:id="@+id/bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/bottom_sheet_behavior" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -534,13 +539,11 @@
                 </LinearLayout>
 
 
-
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
     </com.google.android.material.navigation.NavigationView>
-
 
 
 

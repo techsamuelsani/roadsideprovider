@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:textColor="@color/grey_50"
+                style="@style/EditText.Flat.Grey"
+                android:layout_width="wrap_content"
+                android:background="@drawable/btn_rect_black_grey"
+                android:layout_height="@dimen/spacing_xmlarge"
+                android:focusable="false"
+                android:minHeight="@dimen/spacing_xmlarge"
+                android:paddingLeft="@dimen/spacing_large"
+                android:paddingRight="@dimen/spacing_large"
+                android:text="Order Details" />
+            <ImageView
+                android:id="@+id/notification_icon"
+                android:layout_marginEnd="@dimen/spacing_large"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_width="@dimen/spacing_xlarge"
+                android:layout_height="@dimen/spacing_xlarge"
+                android:src="@drawable/ic_baseline_notifications_24"
+                android:layout_alignParentRight="true"
+                app:tint="@color/white" />
+
+        </RelativeLayout>
+
+
+        <EditText
+            android:id="@+id/service_name"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:background="@drawable/btn_rect_black_grey"
+            android:drawableStart="@drawable/ic_baseline_details_24"
+            android:drawableLeft="@drawable/ic_baseline_details_24"
+            android:drawableTint="@color/white"
+            android:drawablePadding="@dimen/spacing_large"
+            android:focusable="false"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:paddingLeft="@dimen/spacing_large"
+            android:paddingRight="@dimen/spacing_large"
+            android:text="Service Name"
+            android:textColor="@color/grey_50" />
+
+        <EditText
+            android:id="@+id/order_type"
+            android:textColor="@color/grey_50"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:background="@drawable/btn_rect_black_grey"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:drawableStart="@drawable/ic_baseline_star_border_24"
+            android:drawableLeft="@drawable/ic_baseline_star_border_24"
+            android:drawableTint="@color/white"
+            android:drawablePadding="@dimen/spacing_large"
+            android:focusable="false"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:paddingLeft="@dimen/spacing_large"
+            android:paddingRight="@dimen/spacing_large"
+            android:text="Order type" />
+        <EditText
+            android:id="@+id/location"
+            android:textColor="@color/grey_50"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:background="@drawable/btn_rect_black_grey"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:drawableStart="@drawable/ic_baseline_pin_drop_24"
+            android:drawableLeft="@drawable/ic_baseline_pin_drop_24"
+            android:drawableTint="@color/white"
+            android:drawablePadding="@dimen/spacing_large"
+            android:focusable="false"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:paddingLeft="@dimen/spacing_large"
+            android:paddingRight="@dimen/spacing_large"
+            android:text="Location" />
+        <EditText
+            android:id="@+id/payment_type"
+            android:textColor="@color/grey_50"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:background="@drawable/btn_rect_black_grey"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:drawableStart="@drawable/ic_baseline_payment_24"
+            android:drawableLeft="@drawable/ic_baseline_payment_24"
+            android:drawableTint="@color/white"
+            android:drawablePadding="@dimen/spacing_large"
+            android:focusable="false"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:paddingLeft="@dimen/spacing_large"
+            android:paddingRight="@dimen/spacing_large"
+            android:text="Payment type" />
+        <EditText
+            android:id="@+id/approx_minutes"
+            android:textColor="@color/grey_50"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:background="@drawable/btn_rect_black_grey"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:drawableStart="@drawable/ic_baseline_access_time_24"
+            android:drawableLeft="@drawable/ic_baseline_access_time_24"
+            android:drawableTint="@color/white"
+            android:drawablePadding="@dimen/spacing_large"
+            android:focusable="false"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:paddingLeft="@dimen/spacing_large"
+            android:paddingRight="@dimen/spacing_large"
+            android:text="Approximate minutes" />
+        <EditText
+            android:id="@+id/approx_km"
+            android:textColor="@color/grey_50"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:background="@drawable/btn_rect_black_grey"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:drawableStart="@drawable/ic_baseline_assistant_direction_24"
+            android:drawableLeft="@drawable/ic_baseline_assistant_direction_24"
+            android:drawableTint="@color/white"
+            android:drawablePadding="@dimen/spacing_large"
+            android:focusable="false"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:paddingLeft="@dimen/spacing_large"
+            android:paddingRight="@dimen/spacing_large"
+            android:text="Approximate distance" />
+
+
+        <LinearLayout
+            android:padding="@dimen/spacing_large"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_accept"
+                android:paddingLeft="@dimen/spacing_large"
+                android:layout_marginEnd="@dimen/spacing_large"
+                android:layout_weight="1"
+                style="@style/Button.Primary.Borderless"
+                android:drawableLeft="@drawable/ic_baseline_contact_phone_24"
+                android:drawableTint="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@color/colorPrimary"
+                android:text="Accept"
+                android:textColor="@android:color/white" />
+            <Button
+                android:id="@+id/btn_reject"
+                android:paddingLeft="@dimen/spacing_large"
+                android:drawableLeft="@drawable/ic_close"
+                android:drawableTint="@color/white"
+                android:layout_weight="1"
+                style="@style/Button.Primary.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@color/colorAccent"
+                android:text="Cancel"
+                android:textColor="@android:color/white" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:visibility="gone"
+        android:id="@+id/nested_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:scrollingCache="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/spacing_middle"
+            android:paddingLeft="@dimen/spacing_mlarge"
+            android:paddingRight="@dimen/spacing_mlarge"
+            android:paddingTop="@dimen/spacing_middle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:text="Property Type"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/grey_90" />
+
+                <EditText
+                    style="@style/EditText.Flat.Grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_xmlarge"
+                    android:background="@drawable/edit_text_round_bg_outline"
+                    android:drawableEnd="@drawable/ic_expand_arrow"
+                    android:drawableRight="@drawable/ic_expand_arrow"
+                    android:editable="false"
+                    android:minHeight="@dimen/spacing_xmlarge"
+                    android:paddingLeft="@dimen/spacing_large"
+                    android:paddingRight="@dimen/spacing_large"
+                    android:text="Appartement &amp; Unit" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_medium">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_medium"
+                        android:text="Min Price"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/grey_90" />
+
+                    <EditText
+                        style="@style/EditText.Flat.Grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_xmlarge"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:drawableEnd="@drawable/ic_expand_arrow"
+                        android:drawableRight="@drawable/ic_expand_arrow"
+                        android:editable="false"
+                        android:minHeight="@dimen/spacing_xmlarge"
+                        android:paddingLeft="@dimen/spacing_large"
+                        android:paddingRight="@dimen/spacing_large"
+                        android:text="$50,000" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/spacing_xlarge"
+                    android:layout_height="0dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_medium">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_medium"
+                        android:text="Max Price"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/grey_90" />
+
+                    <EditText
+                        style="@style/EditText.Flat.Grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_xmlarge"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:drawableEnd="@drawable/ic_expand_arrow"
+                        android:drawableRight="@drawable/ic_expand_arrow"
+                        android:editable="false"
+                        android:minHeight="@dimen/spacing_xmlarge"
+                        android:paddingLeft="@dimen/spacing_large"
+                        android:paddingRight="@dimen/spacing_large"
+                        android:text="$400,000" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_medium">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_medium"
+                        android:text="Min Bedrooms"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/grey_90" />
+
+                    <EditText
+                        style="@style/EditText.Flat.Grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_xmlarge"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:drawableEnd="@drawable/ic_expand_arrow"
+                        android:drawableRight="@drawable/ic_expand_arrow"
+                        android:editable="false"
+                        android:minHeight="@dimen/spacing_xmlarge"
+                        android:paddingLeft="@dimen/spacing_large"
+                        android:paddingRight="@dimen/spacing_large"
+                        android:text="2" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/spacing_xlarge"
+                    android:layout_height="0dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_medium">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_medium"
+                        android:text="Max Bedrooms"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/grey_90" />
+
+                    <EditText
+                        style="@style/EditText.Flat.Grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_xmlarge"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:drawableEnd="@drawable/ic_expand_arrow"
+                        android:drawableRight="@drawable/ic_expand_arrow"
+                        android:editable="false"
+                        android:minHeight="@dimen/spacing_xmlarge"
+                        android:paddingLeft="@dimen/spacing_large"
+                        android:paddingRight="@dimen/spacing_large"
+                        android:text="6" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:text="Min Land Size ( m\u00B2 )"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/grey_90" />
+
+                <EditText
+                    style="@style/EditText.Flat.Grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_xmlarge"
+                    android:background="@drawable/edit_text_round_bg_outline"
+                    android:drawableEnd="@drawable/ic_expand_arrow"
+                    android:drawableRight="@drawable/ic_expand_arrow"
+                    android:editable="false"
+                    android:minHeight="@dimen/spacing_xmlarge"
+                    android:paddingLeft="@dimen/spacing_large"
+                    android:paddingRight="@dimen/spacing_large"
+                    android:text="400" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:orientation="vertical">
+
+                <Button
+                    style="@style/Button.Primary.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_rect_black_grey"
+                    android:text="SEARCH"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

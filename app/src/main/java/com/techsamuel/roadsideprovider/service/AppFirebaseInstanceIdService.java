@@ -19,10 +19,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.techsamuel.roadsideprovider.Config;
 import com.techsamuel.roadsideprovider.R;
-import com.techsamuel.roadsideprovider.activity.MainActivity;
 import com.techsamuel.roadsideprovider.activity.MessageActivity;
-import com.techsamuel.roadsideprovider.activity.OrderDetailsActivity;
-import com.techsamuel.roadsideprovider.activity.PreOrderDetailsActivity;
 import com.techsamuel.roadsideprovider.tools.AppSharedPreferences;
 import com.techsamuel.roadsideprovider.tools.Tools;
 
@@ -113,7 +110,7 @@ public class AppFirebaseInstanceIdService extends FirebaseMessagingService {
         }
         Intent resultIntent=null;
         if(type.equals("order")){
-            resultIntent = new Intent(this, PreOrderDetailsActivity.class);
+            //resultIntent = new Intent(this, PreOrderDetailsActivity.class);
             resultIntent.putExtra("order_id",id);
         }else if(type.equals("admin")){
             resultIntent = new Intent(this, MessageActivity.class);
