@@ -3,8 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/drawable/btn_rounded_red.xml" value="0.2475" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/drawable/btn_rounded_white.xml" value="0.2475" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/activity_register_step_four.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/activity_register_step_three.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/activity_register_step_two.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/order_accept_sheet.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/order_request_sheet.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/payment_confirmation_sheet.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/sheet_filter.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/timer_sheet.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/user_vehicle_details_sheet.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideAppGoogleMaps/roadsideprovider/app/src/main/res/layout/vehicle_full_photo_sheet.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/btn_rect_black_grey.xml" value="0.2095" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/edit_text_round_bg_outline.xml" value="0.2095" />
         <entry key="..\:/Users/MIR SHAMUEL HOSSAIN/Desktop/RoadsideApps/roadsideprovider/app/src/main/res/drawable/ic_arrow_drop.xml" value="0.35185185185185186" />

@@ -123,6 +123,10 @@ public interface ApiInterface {
     @POST("getMessageByTypeAndId")
     Call<MessageModel> getMessageByTypeAndId(@Field("device_type") String device_type, @Field("lang_code") String lang_code,
                                              @Field("user_type") String user_type, @Field("user_id") String user_id);
+    @FormUrlEncoded
+    @POST("changeAcceptOrRejectStatus")
+    Call<DataSavedModel> changeAcceptOrRejectStatus(@Field("orderId") String orderId, @Field("type") String type,
+                                             @Field("value") boolean value);
 
 
 }

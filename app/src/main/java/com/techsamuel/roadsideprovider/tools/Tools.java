@@ -44,10 +44,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -111,6 +116,29 @@ public class Tools {
             Intent goMarket = new Intent(Intent.ACTION_VIEW, uri);
             context.startActivity(goMarket);
         }
+    }
+
+    public static boolean isNotExpire(String databaseDate) {
+        boolean isNotExpire=false;
+        long expiredTime=1000*60*20; //Expired 20 minutes
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        String currentDate = dateFormat.format(date).toString();
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date1 = null;
+        Date date2 = null;
+        try {
+            date1=format.parse(databaseDate);
+            date2 = format.parse(currentDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long difference = date2.getTime() - date1.getTime();
+        if(difference<=expiredTime){
+            isNotExpire=true;
+        }
+        return isNotExpire;
     }
 
     private void showConfirmDialog(Context context) {

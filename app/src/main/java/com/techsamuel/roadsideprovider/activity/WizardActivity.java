@@ -140,8 +140,8 @@ public class WizardActivity extends AppCompatActivity implements PermissionCallb
 
     private void askPermission() {
         new AskPermission.Builder(WizardActivity.this)
-                .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.CAMERA,Manifest.permission.CALL_PHONE)
                 .setCallback(WizardActivity.this)
                 .setErrorCallback(WizardActivity.this)

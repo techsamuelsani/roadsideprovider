@@ -12,7 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.techsamuel.roadsideprovider.Config;
+import com.techsamuel.roadsideprovider.model.ProviderLocation;
 import com.techsamuel.roadsideprovider.model.OrderRequest;
 
 import java.util.HashMap;
@@ -38,6 +38,24 @@ public class FirebaseInstanceDatabase {
         });
 
         return successOrderRequest;
+    }
+    public MutableLiveData<Boolean> addProviderLocation(int orderId,ProviderLocation providerLocation){
+        final MutableLiveData<Boolean> successAddProviderLocation = new MutableLiveData<>();
+
+        firebaseDatabase.getReference(DatabaseReferenceName.PROVIDER_LOCATION).child(String.valueOf(orderId)).setValue(providerLocation).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                successAddProviderLocation.setValue(true);
+            }
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successAddProviderLocation.setValue(false);
+            }
+        });
+
+        return successAddProviderLocation;
     }
 
     public MutableLiveData<DataSnapshot> fetchOrderRequest() {
@@ -74,5 +92,39 @@ public class FirebaseInstanceDatabase {
         });
 
         return successAddAcceptedOrRejected;
+    }
+    public LiveData<Boolean> addTrueFalseInDatabase(String type,boolean accepted, int orderId) {
+        final MutableLiveData<Boolean> successAddTrueFalseInDatabase = new MutableLiveData<>();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(type, accepted);
+        firebaseDatabase.getReference(DatabaseReferenceName.ORDER_REQUESTS).child(String.valueOf(orderId)).updateChildren(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                successAddTrueFalseInDatabase.setValue(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successAddTrueFalseInDatabase.setValue(false);
+            }
+        });
+
+        return successAddTrueFalseInDatabase;
+    }
+
+    public LiveData<DataSnapshot> fetchProviderLocation(int orderId) {
+        final MutableLiveData<DataSnapshot> fetchProviderLocation = new MutableLiveData<>();
+        firebaseDatabase.getReference(DatabaseReferenceName.PROVIDER_LOCATION).child(String.valueOf(orderId)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                fetchProviderLocation.setValue(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return fetchProviderLocation;
     }
 }

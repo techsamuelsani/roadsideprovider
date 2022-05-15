@@ -20,17 +20,49 @@ public class OrderRequest {
     double totalKms;
     double approx_cost1;
     double approx_cost2;
+    double final_cost;
     double userLat;
     double userLong;
     double providerLat;
     double providerLong;
+    double providerStoreLat;
+    double providerStoreLong;
+    double dropOfffLat;
+    double dropOffLong;
 
     String order_type;
     String payment_type;
     String notes;
 
+    String providerPhone;
+    String userPhone;
+    boolean markAsArrived;
+    boolean markAsCompleted;
+    boolean vehicleDetailsSaved;
+    long timeInSeconds;
+    boolean timerSaved;
+    boolean vehicleFullPhotoSaved;
+    boolean cashReceived;
+    boolean orderPaid;
+    String ratings;
+    String reviewsNotes;
 
-    public OrderRequest(int id, int user_id, int provider_id, int service_id, String service_name, boolean accepted, boolean rejected, String date, String timeZone, double base_price, double price_per_minute, double price_per_km, double totalMinutes, double totalKms, double approx_cost1, double approx_cost2, double userLat, double userLong, double providerLat, double providerLong, String order_type, String payment_type, String notes) {
+
+
+    public boolean isMarkAsCompleted() {
+        return markAsCompleted;
+    }
+
+    public void setMarkAsCompleted(boolean markAsCompleted) {
+        this.markAsCompleted = markAsCompleted;
+    }
+
+    public OrderRequest(int id, int user_id, int provider_id, int service_id, String service_name, boolean accepted, boolean rejected, String date, String timeZone, double base_price, double price_per_minute,
+                        double price_per_km, double totalMinutes, double totalKms, double approx_cost1, double approx_cost2,double final_cost, double userLat, double userLong, double providerLat, double providerLong,
+                        double providerStoreLat,double providerStoreLong,double dropOfffLat, double dropOffLong,
+                        String order_type, String payment_type, String notes, String providerPhone,String userPhone, boolean markAsArrived, boolean markAsCompleted,boolean
+                                vehicleDetailsSaved,long timeInSeconds,boolean timerSaved,boolean vehicleFullPhotoSaved,boolean cashReceived,boolean orderPaid,
+                        String ratings,String reviewsNotes) {
         this.id = id;
         this.user_id = user_id;
         this.provider_id = provider_id;
@@ -47,17 +79,162 @@ public class OrderRequest {
         this.totalKms = totalKms;
         this.approx_cost1 = approx_cost1;
         this.approx_cost2 = approx_cost2;
+        this.final_cost=final_cost;
         this.userLat = userLat;
         this.userLong = userLong;
         this.providerLat = providerLat;
         this.providerLong = providerLong;
+        this.providerStoreLat=providerStoreLat;
+        this.providerStoreLong=providerStoreLong;
         this.order_type = order_type;
         this.payment_type = payment_type;
         this.notes = notes;
+        this.dropOfffLat=dropOfffLat;
+        this.dropOffLong=dropOffLong;
+        this.providerPhone=providerPhone;
+        this.userPhone=userPhone;
+        this.markAsArrived=markAsArrived;
+        this.markAsCompleted=markAsCompleted;
+        this.vehicleDetailsSaved=vehicleDetailsSaved;
+        this.timeInSeconds=timeInSeconds;
+        this.timerSaved=timerSaved;
+        this.vehicleFullPhotoSaved=vehicleFullPhotoSaved;
+        this.cashReceived=cashReceived;
+        this.orderPaid=orderPaid;
+        this.ratings=ratings;
+        this.reviewsNotes=reviewsNotes;
+    }
+
+    public double getFinal_cost() {
+        return final_cost;
+    }
+
+    public void setFinal_cost(double final_cost) {
+        this.final_cost = final_cost;
+    }
+
+    public String getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(String ratings) {
+        this.ratings = ratings;
+    }
+
+    public String getReviewsNotes() {
+        return reviewsNotes;
+    }
+
+    public void setReviewsNotes(String reviewsNotes) {
+        this.reviewsNotes = reviewsNotes;
+    }
+
+    public long getTimeInSeconds() {
+        return timeInSeconds;
+    }
+
+    public void setTimeInSeconds(long timeInSeconds) {
+        this.timeInSeconds = timeInSeconds;
+    }
+
+    public boolean isTimerSaved() {
+        return timerSaved;
+    }
+
+    public void setTimerSaved(boolean timerSaved) {
+        this.timerSaved = timerSaved;
+    }
+
+    public boolean isVehicleFullPhotoSaved() {
+        return vehicleFullPhotoSaved;
+    }
+
+    public void setVehicleFullPhotoSaved(boolean vehicleFullPhotoSaved) {
+        this.vehicleFullPhotoSaved = vehicleFullPhotoSaved;
+    }
+
+    public boolean isCashReceived() {
+        return cashReceived;
+    }
+
+    public void setCashReceived(boolean cashReceived) {
+        this.cashReceived = cashReceived;
+    }
+
+    public boolean isOrderPaid() {
+        return orderPaid;
+    }
+
+    public void setOrderPaid(boolean orderPaid) {
+        this.orderPaid = orderPaid;
+    }
+
+    public boolean isVehicleDetailsSaved() {
+        return vehicleDetailsSaved;
+    }
+
+    public void setVehicleDetailsSaved(boolean vehicleDetailsSaved) {
+        this.vehicleDetailsSaved = vehicleDetailsSaved;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public double getProviderStoreLat() {
+        return providerStoreLat;
+    }
+
+    public void setProviderStoreLat(double providerStoreLat) {
+        this.providerStoreLat = providerStoreLat;
+    }
+
+    public double getProviderStoreLong() {
+        return providerStoreLong;
+    }
+
+    public void setProviderStoreLong(double providerStoreLong) {
+        this.providerStoreLong = providerStoreLong;
+    }
+
+    public String getProviderPhone() {
+        return providerPhone;
+    }
+
+    public void setProviderPhone(String providerPhone) {
+        this.providerPhone = providerPhone;
+    }
+
+    public boolean isMarkAsArrived() {
+        return markAsArrived;
+    }
+
+    public void setMarkAsArrived(boolean markAsArrived) {
+        this.markAsArrived = markAsArrived;
     }
 
     public OrderRequest(){
 
+    }
+
+    public double getDropOfffLat() {
+        return dropOfffLat;
+    }
+
+    public void setDropOfffLat(double dropOfffLat) {
+        this.dropOfffLat = dropOfffLat;
+    }
+
+    public double getDropOffLong() {
+        return dropOffLong;
+    }
+
+    public void setDropOffLong(double dropOffLong) {
+        this.dropOffLong = dropOffLong;
     }
 
     public boolean isRejected() {

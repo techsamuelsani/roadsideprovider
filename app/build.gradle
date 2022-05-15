@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 28
     buildToolsVersion "31.0.0"
 
     defaultConfig {
         applicationId "com.techsamuel.roadsideprovider"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -50,6 +50,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
 
 
+
+
     //Third party dependencies here
     implementation 'com.hbb20:ccp:2.4.7' //Country code picker
     implementation 'com.squareup.retrofit2:retrofit:2.9.0' //Retrofit Api Builder Library
@@ -61,6 +63,7 @@ dependencies {
     implementation 'com.balysv:material-ripple:1.0.2'
     implementation 'com.github.basusingh:BeautifulProgressDialog:1.001' //Beautiful progress dialog library
     implementation 'com.github.ybq:Android-SpinKit:1.4.0' //Spinkit progressbar library
+    implementation 'com.github.gcacace:signature-pad:1.3.1'
 
     implementation('com.kishan.askpermission:askpermission:1.0.3', { //Ask Permission at once
         exclude group: 'com.android.support'

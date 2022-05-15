@@ -17,7 +17,11 @@ public class Config {
     public static final String SHARED_PREF_DEVICE_ID = "device_id";
     public static final String SHARED_PREF_ORDER_MODEL = "order_model";
     public static final long SPLASH_SCREEN_TIMEOUT = 0;
-    public static String ORDER_TYPE_DELIVERY="delivery";
+    public static final String ORDER_TYPE_NONE = "none";
+    public static String PAYMENT_TYPE_CASH="cash";
+    public static String PAYMENT_TYPE_CARD="card";
+    public static  int ORDER_ID = 0;
+    public static String ORDER_TYPE_DELIVERY="delivery";//Delivery means Dropoff
     public static String ORDER_TYPE_PICKUP="pickup";
     public static int PHONE_VERIFICATION_CODE=101;
     public static int API_SUCCESS=200;

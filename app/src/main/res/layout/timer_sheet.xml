@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btn_hide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_drop"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <Button
+            android:id="@+id/navigation_with_google_maps"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_rounded_red"
+            android:backgroundTint="@color/blue_600"
+            android:text="Navigation with Google Maps"
+            android:paddingLeft="@dimen/spacing_large"
+            android:drawableLeft="@drawable/ic_google_maps"
+            android:drawablePadding="@dimen/spacing_medium"
+            android:textColor="@color/white"
+            android:gravity="left|center"
+            />
+        <Button
+            android:id="@+id/call_the_use"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_margin="@dimen/spacing_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_rounded_red"
+            android:backgroundTint="@color/white"
+            android:text="Call the User"
+            android:paddingLeft="@dimen/spacing_large"
+            android:drawableLeft="@drawable/ic_dialer_64"
+            android:drawablePadding="@dimen/spacing_medium"
+            android:gravity="left|center"
+            />
+
+        <ImageView
+            android:id="@+id/timer_play_pause"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_baseline_play_circle_24"
+            app:tint="@color/green_400"
+            android:layout_gravity="center_horizontal"
+            />
+        <TextView
+            android:id="@+id/timer_text"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start timer"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            />
+
+    </LinearLayout>
+    <View
+        android:background="@color/grey_300"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/timer_total"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time elapsed"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        />
+
+
+</LinearLayout>

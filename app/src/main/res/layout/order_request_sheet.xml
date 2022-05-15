@@ -35,6 +35,15 @@
                 android:src="@drawable/ic_baseline_notifications_24"
                 android:layout_alignParentRight="true"
                 app:tint="@color/white" />
+            <ImageView
+                android:id="@+id/close_btn"
+                android:layout_marginEnd="@dimen/spacing_large"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_width="@dimen/spacing_xlarge"
+                android:layout_height="@dimen/spacing_xlarge"
+                android:src="@drawable/ic_close"
+                android:layout_centerHorizontal="true"
+                app:tint="@color/white" />
 
         </RelativeLayout>
 
@@ -87,7 +96,23 @@
             android:minHeight="@dimen/spacing_xmlarge"
             android:paddingLeft="@dimen/spacing_large"
             android:paddingRight="@dimen/spacing_large"
-            android:text="Location" />
+            android:text="Pickup Location" />
+        <EditText
+            android:id="@+id/location_dropoff"
+            android:textColor="@color/grey_50"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:background="@drawable/btn_rect_black_grey"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:drawableStart="@drawable/ic_baseline_pin_drop_24"
+            android:drawableLeft="@drawable/ic_baseline_pin_drop_24"
+            android:drawableTint="@color/white"
+            android:drawablePadding="@dimen/spacing_large"
+            android:focusable="false"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:paddingLeft="@dimen/spacing_large"
+            android:paddingRight="@dimen/spacing_large"
+            android:text="Dropoff Location" />
         <EditText
             android:id="@+id/payment_type"
             android:textColor="@color/grey_50"
@@ -150,11 +175,11 @@
                 android:layout_marginEnd="@dimen/spacing_large"
                 android:layout_weight="1"
                 style="@style/Button.Primary.Borderless"
-                android:drawableLeft="@drawable/ic_baseline_contact_phone_24"
+                android:drawableLeft="@drawable/ic_baseline_check_24"
                 android:drawableTint="@color/white"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:background="@color/colorPrimary"
+                android:layout_height="35dp"
+                android:background="@color/green_700"
                 android:text="Accept"
                 android:textColor="@android:color/white" />
             <Button
@@ -165,8 +190,8 @@
                 android:layout_weight="1"
                 style="@style/Button.Primary.Borderless"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:background="@color/colorAccent"
+                android:layout_height="35dp"
+                android:background="@color/red_600"
                 android:text="Cancel"
                 android:textColor="@android:color/white" />
 
